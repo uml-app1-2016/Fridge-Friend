@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] mCategories = {"All", "Dairy", "Produce", "Dessert"};
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    public DBHelper productdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +39,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //initialize db
+        productdb = new DBHelper(this);
+
+        //list of all prods
+        ArrayList array_list = productdb.getAllProducts();
+        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mCategories));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+       // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 }
