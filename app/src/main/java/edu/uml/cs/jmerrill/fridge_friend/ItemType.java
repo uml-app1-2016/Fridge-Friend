@@ -6,13 +6,13 @@ public enum ItemType {
     MEAT(7),
     PACKAGED(365);
 
-    private final int expTime;  // in days
+    private final int shelfLife;  // in days
 
-    ItemType(int expTime){
-        this.expTime = expTime;
+    ItemType(int shelfLife){
+        this.shelfLife = shelfLife;
     }
 
-    public int getExpTime() {
-        return expTime;
+    public int getShelfLife() {
+        return shelfLife;
     }
 }

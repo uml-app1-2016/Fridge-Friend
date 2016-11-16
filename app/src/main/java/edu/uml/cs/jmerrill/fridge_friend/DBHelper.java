@@ -10,11 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-enum type {
-    DAIRY, MEAT, PRODUCE, BEVERAGE, BAKERY,
-}
-
-
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Products.db";
@@ -47,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertProduct (String name, Enum type, int shelflife, int upc) {
+    public boolean insertProduct (String name, ItemType type, int shelflife, int upc) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
@@ -71,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateProduct (Integer id, String name, Enum type, int shelflife, int upc) {
+    public boolean updateProduct (Integer id, String name, ItemType type, int shelflife, int upc) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
