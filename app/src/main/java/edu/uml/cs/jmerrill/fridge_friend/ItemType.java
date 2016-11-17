@@ -4,7 +4,8 @@ public enum ItemType {
     DAIRY(14),
     PRODUCE(7),
     MEAT(7),
-    PACKAGED(365);
+    PACKAGED(365),
+    DEFAULT(21);
 
     private final int shelfLife;  // in days
 

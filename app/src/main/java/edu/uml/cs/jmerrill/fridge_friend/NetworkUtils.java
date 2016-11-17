@@ -17,7 +17,7 @@ public final class NetworkUtils {
 
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String UPC_DB_KEY = "f7a8e84f3b341db3d2f8c3bff9435931";
+    private static final String UPC_DB_KEY = "467287e945bf7c1faad565a46139211f";
 
     private static final String REQUEST_URL = "http://api.upcdatabase.org/json/";
 
@@ -25,6 +25,7 @@ public final class NetworkUtils {
 
     public static UpcItem fetchUpcItem(String code) {
         String urlString = REQUEST_URL + UPC_DB_KEY + "/" + code;
+        Log.d(LOG_TAG, urlString);
 
         URL url = null;
 
@@ -80,6 +81,7 @@ public final class NetworkUtils {
 
             upcItem = new UpcItem(baseJsonResponse.getString("description"),
                     baseJsonResponse.getString("number"));
+
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the JSON results", e);
