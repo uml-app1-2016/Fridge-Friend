@@ -79,7 +79,7 @@ public class ResultsActivity extends AppCompatActivity implements
         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.sample5);
+                R.drawable.sample7);
         imageView.setImageBitmap(bitmap);
 
         // create barcode detector
