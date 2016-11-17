@@ -28,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
+        
         db.execSQL(
                 "create table products " +
                         "(id integer primary key, name text,type enum,shelflife integer, upc integer)"
@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
+        
         db.execSQL("DROP TABLE IF EXISTS contacts");
         onCreate(db);
     }
