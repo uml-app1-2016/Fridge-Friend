@@ -1,3 +1,21 @@
+#Progress Report 1
+
+##Screenshots/Demo:
+
+##Class Assignment:
+###John:
+- NetworkUtilis
+- UPCItem
+- UPCItemLoader
+
+###Alex:
+- DBHelper
+- ResultsActivity
+
+###Sam:
+- Item Type 
+- ResultsActivity
+ 
 # Group-Project
 Android Development I group project by John Merrill, Samuel Chambers, and Alex Nevers. 
 
