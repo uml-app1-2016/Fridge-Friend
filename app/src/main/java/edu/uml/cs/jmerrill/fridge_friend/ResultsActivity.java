@@ -1,6 +1,7 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -16,6 +17,8 @@ import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +32,7 @@ public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
 
     File imgFile;
+    DBHelper productdb;
     public UpcItem upcItem;
 
     private static final String LOG_TAG = ResultsActivity.class.getSimpleName();
@@ -38,9 +42,6 @@ public class ResultsActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-
-        //image path is Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "barcode.jpg"
-        imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
 
         // load data from network
         ConnectivityManager connectivityManager =
@@ -56,13 +57,26 @@ public class ResultsActivity extends AppCompatActivity implements
             Log.e(LOG_TAG, "Could not connect");
         }
 
-        // use button to add upcItem to database
+        Button btnAddItem = (Button) findViewById(R.id.btn_add_item);
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                productdb.insertProduct(upcItem.getName(), upcItem.getItemType(), upcItem.getShelfLife(), upcItem.hashCode());
+            }
+        });
+
+
         // TODO: error handling for misread barcodes
     }
 
     @Override
     public Loader<UpcItem> onCreateLoader(int id, Bundle args) {
         ImageView imageView = (ImageView) findViewById(R.id.imgview);
+
+        //image path is Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "barcode.jpg"
+        //imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
+        //Intent intent = getIntent();
+        //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                 R.drawable.sample5);
@@ -104,15 +118,7 @@ public class ResultsActivity extends AppCompatActivity implements
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
         
-   /****ADD PRODCT TO DB 
-   
-   //add this line to the class variables up top
-        DBHelper productdb ;
- 
-   //when barcode is scanned, extract name, type, shelflife, and upc from scanner and save as temp vals. pass these temps to function below to add to db.
-        productdb.insertProduct(scannedname, scannedtype, scannedshelflife, scannedupc))
-        
-   ****/
+
     }
 
     @Override

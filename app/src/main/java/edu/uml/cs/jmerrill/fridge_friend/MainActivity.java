@@ -3,6 +3,9 @@ package edu.uml.cs.jmerrill.fridge_friend;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -44,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
+
+                //imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
+                imgFile = new File(getFilesDir(), "barcode.jpg");
                 Uri tempUri = Uri.fromFile(imgFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
                 intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
@@ -82,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             switch (resultCode) {
                 case Activity.RESULT_OK:
-                    if (imgFile.exists()) {
+                    if (true) {//imgFile.getAbsoluteFile().exists()) {
                         Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+                        //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        //Bitmap bm = decodeSampledBitmapFromFile(imgFile.getAbsolutePath(), 100, 100);
                         startActivity(intent);
                     }
                     else {
@@ -97,4 +104,43 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    //Resize picture taken to avoid OutOfMemory error when creating bitmap from image. NOT FUNCTIONAL
+    /*public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(path, options);
+    }*/
 }
