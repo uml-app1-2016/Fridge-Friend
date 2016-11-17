@@ -103,6 +103,16 @@ public class ResultsActivity extends AppCompatActivity implements
 
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
+        
+   /****ADD PRODCT TO DB 
+   
+   //add this line to the class variables up top
+        DBHelper productdb ;
+ 
+   //when barcode is scanned, extract name, type, shelflife, and upc from scanner and save as temp vals. pass these temps to function below to add to db.
+        productdb.insertProduct(scannedname, scannedtype, scannedshelflife, scannedupc))
+        
+   ****/
     }
 
     @Override
