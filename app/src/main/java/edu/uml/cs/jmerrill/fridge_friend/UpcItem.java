@@ -8,7 +8,7 @@ public class UpcItem {
     private ItemType itemType;
     private Calendar dateAdded;
 
-    public UpcItem(String name, String id, int expTime, ItemType itemType){
+    public UpcItem(String name, String id, ItemType itemType){
         this.name = name;
         this.id = id;
         this.itemType = itemType;
@@ -18,13 +18,23 @@ public class UpcItem {
         this.dateAdded = Calendar.getInstance();
     }
 
+    // temp constructor
+    public UpcItem(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
+    public void setName(String itemname) { this.name = name; }
+
     public String getId() {
         return id;
     }
+
+    public void setId(String number) { this.id = id; }
 
     public int getShelfLife() {
         return shelfLife;
