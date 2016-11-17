@@ -79,13 +79,13 @@ public class ResultsActivity extends AppCompatActivity implements
         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.sample7);
+                R.drawable.sample6);
         imageView.setImageBitmap(bitmap);
 
         // create barcode detector
         BarcodeDetector detector =
                 new BarcodeDetector.Builder(getApplicationContext())
-                        .setBarcodeFormats(Barcode.UPC_A | Barcode.UPC_E)
+                        .setBarcodeFormats(Barcode.UPC_A | Barcode.UPC_E | Barcode.EAN_13 | Barcode.ISBN | Barcode.EAN_8)
                         .build();
 
         if (!detector.isOperational()) {
@@ -99,7 +99,8 @@ public class ResultsActivity extends AppCompatActivity implements
 
         // detect barcode
         Barcode barcode = barcodes.valueAt(0);
-        String barcode_id = barcode.rawValue;
+        String barcode_id = "0" + barcode.rawValue;
+        Log.d(LOG_TAG, barcode_id);
 
         return new UpcItemLoader(this, barcode_id);
     }
