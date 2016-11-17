@@ -1,6 +1,7 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
 import android.app.Activity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -63,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         lvMain.setAdapter(arrayAdapter);
 
     /*
+        //list of all prods
+        ArrayList array_list = productdb.getAllProducts();
+        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -92,6 +97,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
