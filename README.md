@@ -1,9 +1,8 @@
-#Progress Report 1
+#Progress Report 2
 Progress for this week:
-- Barcode recognition of in-app drawables
-- Parsing from UPC Databse
-- Basic UI layout
-- Created Framework for database
+- Tweaking Res Layouts
+-
+
 ##Screenshots/Demo:
 ![Alt text](/screenshot/MainActivity.png?raw=true "MainActivity")
 ![Alt text](/screenshot/ResultActivity.png?raw=true "ResultsActivity")
