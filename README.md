@@ -1,3 +1,28 @@
+#Progress Report 2
+Progress for this week:
+- Tweaking Res Layouts
+-
+
+##Screenshots/Demo:
+![Alt text](/screenshot/MainActivity.png?raw=true "MainActivity")
+![Alt text](/screenshot/ResultActivity.png?raw=true "ResultsActivity")
+
+##Class Assignment:
+###John:
+- NetworkUtilis
+- UPCItem
+- UPCItemLoader
+- ItemType
+
+###Alex:
+- DBHelper
+- ResultsActivity
+
+###Sam:
+- Item Type 
+- ResultsActivity
+- UI Layouts
+ 
 # Group-Project
 Android Development I group project by John Merrill, Samuel Chambers, and Alex Nevers. 
 

@@ -64,9 +64,6 @@ public class ResultsActivity extends AppCompatActivity implements
                 productdb.insertProduct(upcItem.getName(), upcItem.getItemType(), upcItem.getShelfLife(), upcItem.hashCode());
             }
         });
-
-
-        // TODO: error handling for misread barcodes
     }
 
     @Override
@@ -99,9 +96,16 @@ public class ResultsActivity extends AppCompatActivity implements
 
         // detect barcode
         Barcode barcode = barcodes.valueAt(0);
-        String barcode_id = "0" + barcode.rawValue;
-        Log.d(LOG_TAG, barcode_id);
+        String barcode_id;
+        
+        if (barcode != null) {
+            barcode_id = "0" + barcode.rawValue;
+        } else {
+            Log.e(LOG_TAG, "Bitmap did not return barcode");
+            barcode_id = "00000000000";
+        }
 
+        Log.d(LOG_TAG, barcode_id);
         return new UpcItemLoader(this, barcode_id);
     }
 
