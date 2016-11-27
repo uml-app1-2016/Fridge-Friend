@@ -6,13 +6,15 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:id="@+id/imgview"/>
+        android:id="@+id/imgview"
+        android:layout_gravity="center"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_item_button"
-        android:id="@+id/btn_add_item" />
+        android:id="@+id/btn_add_item"
+        android:layout_gravity="center"/>
 
     <TextView android:text=""
         android:layout_width="wrap_content"
