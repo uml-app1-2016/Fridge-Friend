@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
-//import android.support.v4.app.LoaderManager;
-//import android.support.v4.content.Loader;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -97,7 +95,7 @@ public class ResultsActivity extends AppCompatActivity implements
         // detect barcode
         Barcode barcode = barcodes.valueAt(0);
         String barcode_id;
-        
+
         if (barcode != null) {
             barcode_id = "0" + barcode.rawValue;
         } else {
