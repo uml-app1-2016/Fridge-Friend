@@ -3,6 +3,7 @@ package edu.uml.cs.jmerrill.fridge_friend;
 import java.util.Calendar;
 
 public class UpcItem {
+
     private String name, id;
     private int shelfLife;
     private ItemType itemType;
@@ -50,6 +51,8 @@ public class UpcItem {
         return itemType;
     }
 
+    public void setItemType(ItemType itemType) { this.itemType = itemType; }
+
     public Calendar getDateAdded() {
         return dateAdded;
     }
@@ -67,5 +70,15 @@ public class UpcItem {
 
         expDate.add(Calendar.DATE, shelfLife);
         return expDate;
+    }
+
+    public void applyItemType() {
+        for (ItemType type : ItemType.values()) {
+            for (String keyword : type.getKeywords()) {
+                if(name.toLowerCase().contains(keyword)) {
+                    itemType = type;
+                }
+            }
+        }
     }
 }
