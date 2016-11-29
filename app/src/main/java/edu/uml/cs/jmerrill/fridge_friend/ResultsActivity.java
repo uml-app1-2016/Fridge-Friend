@@ -59,7 +59,7 @@ public class ResultsActivity extends AppCompatActivity implements
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productdb.insertProduct(upcItem.getName(), upcItem.getItemType(), upcItem.getShelfLife(), upcItem.hashCode());
+                productdb.insertProduct(upcItem);
             }
         });
     }
