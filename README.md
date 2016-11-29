@@ -1,6 +1,6 @@
 #Progress Report 2
 Progress for this week:
-- Tweaking Res Layouts
+- Alex: tweaked UI alignment, updated DBHelper class to take UPC items instead of individual keys, updated results activity for new upcitem format
 -
 
 ##Screenshots/Demo:
