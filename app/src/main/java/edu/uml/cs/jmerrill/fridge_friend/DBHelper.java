@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
         
         db.execSQL(
                 "create table products " +
-                        "(id integer primary key, name text,type enum,shelflife integer, upc integer)"
+                        "(id integer primary key, name text,type enum,shelflife integer, upc text)"
         );
     }
 
@@ -42,21 +42,27 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertProduct (String name, ItemType type, int shelflife, int upc) {
+    public boolean insertProduct (UpcItem upc) {
+
+        String name = upc.getName();
+        ItemType type = upc.getItemType();
+        int shelflife = upc.getShelfLife();
+        String upccode = upc.getId();
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
         contentValues.put("type", String.valueOf(type));
         contentValues.put("shelflife", shelflife);
-        contentValues.put("upc", upc);
+        contentValues.put("upc", upccode);
 
         db.insert("products", null, contentValues);
         return true;
     }
 
-    public Cursor getData(int id) {
+    public Cursor getData(UpcItem id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from products where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from products where upc="+id+"", null );
         return res;
     }
 
@@ -66,22 +72,29 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateProduct (Integer id, String name, ItemType type, int shelflife, int upc) {
+    public boolean updateProduct (UpcItem upc) {
+
+        String name = upc.getName();
+        ItemType type = upc.getItemType();
+        int shelflife = upc.getShelfLife();
+        String upccode = upc.getId();
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
         contentValues.put("type", String.valueOf(type));
         contentValues.put("shelflife", shelflife);
-        contentValues.put("upc", upc);
-        db.update("products", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
+        contentValues.put("upc", upccode);
+        db.update("products", contentValues, "upc = ? ", new String[] { upccode } );
         return true;
     }
 
-    public Integer deleteProduct (Integer id) {
+    public Integer deleteProduct (UpcItem upc) {
+        String upccode = upc.getId();
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("products",
                 "id = ? ",
-                new String[] { Integer.toString(id) });
+                new String[] { upccode });
     }
 
     public ArrayList<String> getAllProducts() {
