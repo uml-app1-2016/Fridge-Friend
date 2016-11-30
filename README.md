@@ -1,7 +1,7 @@
 #Progress Report 2
 Progress for this week:
 - Alex: tweaked UI alignment, updated DBHelper class to take UPC items instead of individual keys, updated results activity for new upcitem format
--
+- John: added support for item type recognition based on name retrieved from UPC (ie. A barcode for "Milk" will automatically be categorized as Dairy and an appropriate expiration date will be calculated)
 
 ##Screenshots/Demo:
 ![Alt text](/screenshot/MainActivity.png?raw=true "MainActivity")
