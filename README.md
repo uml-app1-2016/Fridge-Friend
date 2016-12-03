@@ -30,6 +30,8 @@ https://docs.google.com/document/d/1EJzs_gWDXxbWVhhIF-01Sp4CI4fw13aB3sjQcY1dCWs/
  * Results_Activity: [Sam & Alex] Looks up barcode scan and retrieves UPC Item with description & photo, adds to the database
  * UpcItem: [John] Defines a UPC Item including name, item type, and shelf life, to be added to database
  * UpcItemLoader: [John] Asyncronously loads UPCItem in background
+ 
+ * ReadMe: [Alex] Project Report/Admin
 
 ## Screenshots/Demo:
 ![Alt text](/screenshot/MainActivity.png?raw=true "MainActivity")
