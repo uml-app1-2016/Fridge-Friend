@@ -1,9 +1,16 @@
-#Progress Report 2
+#Progress Report 3
 Progress for this week:
-- Alex: tweaked UI alignment, updated DBHelper class to take UPC items instead of individual keys, updated results activity for new upcitem format
-- John: added support for item type recognition based on name retrieved from UPC (ie. A barcode for "Milk" will automatically be categorized as Dairy and an appropriate expiration date will be calculated)
 
-##Screenshots/Demo:
+
+## Group-Project
+Android Development I group project by John Merrill, Samuel Chambers, and Alex Nevers. 
+
+
+### Summary
+Our app will be an inventory tracking app that scans product barcodes from the camera, fetches their data using a computer vision API, and stores them in the user's database.
+
+
+##Screenshots/Demo (no UI Changes):
 ![Alt text](/screenshot/MainActivity.png?raw=true "MainActivity")
 ![Alt text](/screenshot/ResultActivity.png?raw=true "ResultsActivity")
 
@@ -23,12 +30,7 @@ Progress for this week:
 - ResultsActivity
 - UI Layouts
  
-# Group-Project
-Android Development I group project by John Merrill, Samuel Chambers, and Alex Nevers. 
 
-
-### Summary
-Our app will be an inventory tracking app that scans product barcodes from the camera, fetches their data using a computer vision API, and stores them in the user's database.
 
 ### Member Tasks
 ###### John
