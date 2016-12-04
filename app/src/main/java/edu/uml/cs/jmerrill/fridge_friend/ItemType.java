@@ -8,6 +8,22 @@ public enum ItemType {
     PACKAGED(365, null),
     DEFAULT(21, null);
 
+    private final int shelfLife;  // in days
+    private final String[] keywords;
+
+    ItemType(int shelfLife, String[] keywords){
+        this.shelfLife = shelfLife;
+        this.keywords = keywords;
+    }
+
+    public int getShelfLife() {
+        return shelfLife;
+    }
+
+    public String[] getKeywords() {
+        return keywords;
+    }
+
     private static class Keywords {
         private static final String[] PRODUCE_KEYWORDS =
                 {"mango",
@@ -97,23 +113,5 @@ public enum ItemType {
                         "chicken",
                         "burger",
                         "fillet"};
-    }
-
-
-
-    private final int shelfLife;  // in days
-    private final String[] keywords;
-
-    ItemType(int shelfLife, String[] keywords){
-        this.shelfLife = shelfLife;
-        this.keywords = keywords;
-    }
-
-    public int getShelfLife() {
-        return shelfLife;
-    }
-
-    public String[] getKeywords() {
-        return keywords;
     }
 }

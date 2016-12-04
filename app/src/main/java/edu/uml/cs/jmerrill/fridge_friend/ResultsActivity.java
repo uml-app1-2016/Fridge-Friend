@@ -60,6 +60,8 @@ public class ResultsActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 productdb.insertProduct(upcItem);
+                //Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
+                //startActivity(intent);
             }
         });
     }
@@ -68,13 +70,23 @@ public class ResultsActivity extends AppCompatActivity implements
     public Loader<UpcItem> onCreateLoader(int id, Bundle args) {
         ImageView imageView = (ImageView) findViewById(R.id.imgview);
 
+        Log.d(LOG_TAG, "yup the loader's getting made");
+
         //image path is Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "barcode.jpg"
-        //imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
+        imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
         //Intent intent = getIntent();
         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.sample6);
+        if(getIntent().getExtras() == null) {
+            Log.d(LOG_TAG, "It's null oh no");
+        }
+
+        Log.d(LOG_TAG, getIntent().getExtras().toString());
+        //Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+        //       R.drawable.sample6);
+
+        byte[] img = getIntent().getByteArrayExtra("image");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
         imageView.setImageBitmap(bitmap);
 
         // create barcode detector

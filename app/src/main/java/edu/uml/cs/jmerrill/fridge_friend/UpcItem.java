@@ -77,6 +77,8 @@ public class UpcItem {
             for (String keyword : type.getKeywords()) {
                 if(name.toLowerCase().contains(keyword)) {
                     itemType = type;
+                } else {
+                    itemType = ItemType.PACKAGED;
                 }
             }
         }

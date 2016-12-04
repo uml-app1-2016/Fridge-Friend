@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +24,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,10 +54,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                 //imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
-                imgFile = new File(getFilesDir(), "barcode.jpg");
-                Uri tempUri = Uri.fromFile(imgFile);
+                File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                try {
+                    imgFile = File.createTempFile("barcode", ".jpg", storageDir);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Uri tempUri = FileProvider.getUriForFile(getParent(), "edu.uml.cs.jmerrill.fridge_friend.fileprovider", imgFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                //intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         });
@@ -64,9 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
         //list of all prods
         ArrayList array_list = productdb.getAllProducts();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
+        ItemAdapter adapter = new ItemAdapter(this, array_list);
+        lvMain.setAdapter(adapter);
+        //ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_list);
 
-        lvMain.setAdapter(arrayAdapter);
+        //lvMain.setAdapter(arrayAdapter);
 
     /*
         //list of all prods
@@ -89,11 +101,31 @@ public class MainActivity extends AppCompatActivity {
                 case Activity.RESULT_OK:
                     if (true) {//imgFile.getAbsoluteFile().exists()) {
                         Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+
+                        // converts captured bitmap to byte array for passing as extra
+                        //Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+
+
+                        Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+                        if (bitmap == null) {
+                            Log.d("MainActivity", "oh no the bitmap is null");
+                        }
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        if (bitmap != null) {
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                        }
+                        byte[] arr = stream.toByteArray();
+
+                        Log.d("MainActivity", arr.toString());
+
+                        intent.putExtra("image", arr);
+
                         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                         //Bitmap bm = decodeSampledBitmapFromFile(imgFile.getAbsolutePath(), 100, 100);
                         startActivity(intent);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -104,43 +136,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    //Resize picture taken to avoid OutOfMemory error when creating bitmap from image. NOT FUNCTIONAL
-    /*public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    public static Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(path, options);
-    }*/
 }
