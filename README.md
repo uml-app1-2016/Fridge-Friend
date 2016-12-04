@@ -1,6 +1,8 @@
 #Progress Report 3
 Progress for this week:
 
+John - worked on getting image capture from the camera working. This involved fixing issues relating to our file I/O.
+
 
 ## Group-Project
 Android Development I group project by John Merrill, Samuel Chambers, and Alex Nevers. 
