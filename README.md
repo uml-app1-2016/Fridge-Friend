@@ -3,6 +3,7 @@ Progress for this week:
 
 John - worked on getting image capture from the camera working. This involved fixing issues relating to our file I/O.
 
+Sam - Created adapter for populating list view with items. Made a couple of UI tweaks/refinements. Added activity for displaying item info.
 
 ## Group-Project
 Android Development I group project by John Merrill, Samuel Chambers, and Alex Nevers. 
@@ -18,9 +19,8 @@ Our app will be an inventory tracking app that scans product barcodes from the c
 
 ##Class Assignment:
 ###John:
-- NetworkUtilis
-- UPCItem
-- UPCItemLoader
+- ResultsActivity
+- MainActivity
 - ItemType
 
 ###Alex:
@@ -28,9 +28,9 @@ Our app will be an inventory tracking app that scans product barcodes from the c
 - ResultsActivity
 
 ###Sam:
-- Item Type 
 - ResultsActivity
 - UI Layouts
+- Main Activity
  
 
 
