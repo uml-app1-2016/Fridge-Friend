@@ -64,9 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         //list of all prods
         ArrayList array_list = productdb.getAllProducts();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
+        ItemAdapter adapter = new ItemAdapter(this, array_list);
+        lvMain.setAdapter(adapter);
+        //ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_list);
 
-        lvMain.setAdapter(arrayAdapter);
+        //lvMain.setAdapter(arrayAdapter);
 
     /*
         //list of all prods
@@ -92,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                         //Bitmap bm = decodeSampledBitmapFromFile(imgFile.getAbsolutePath(), 100, 100);
                         startActivity(intent);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -104,43 +105,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    //Resize picture taken to avoid OutOfMemory error when creating bitmap from image. NOT FUNCTIONAL
-    /*public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    public static Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(path, options);
-    }*/
 }
