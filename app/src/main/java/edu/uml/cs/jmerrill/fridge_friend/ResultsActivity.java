@@ -68,14 +68,18 @@ public class ResultsActivity extends AppCompatActivity implements
     public Loader<UpcItem> onCreateLoader(int id, Bundle args) {
         ImageView imageView = (ImageView) findViewById(R.id.imgview);
 
+        Log.d(LOG_TAG, "yup the loader's getting made");
+
         //image path is Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "barcode.jpg"
-        //imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
+        imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
         //Intent intent = getIntent();
         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.sample6);
-        imageView.setImageBitmap(bitmap);
+               R.drawable.sample6);
+
+        //Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        //imageView.setImageBitmap(bitmap);
 
         // create barcode detector
         BarcodeDetector detector =
