@@ -64,15 +64,6 @@ public class ResultsActivity extends AppCompatActivity implements
                 //startActivity(intent);
             }
         });
-
-        Button btnCancelAdd = (Button) findViewById(R.id.btn_cancel_add);
-        btnAddItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
