@@ -86,11 +86,17 @@ public class ResultsActivity extends AppCompatActivity implements
         //Intent intent = getIntent();
         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-               R.drawable.sample6);
+        if(getIntent().getExtras() == null) {
+            Log.d(LOG_TAG, "It's null oh no");
+        }
 
-        //Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        //imageView.setImageBitmap(bitmap);
+        Log.d(LOG_TAG, getIntent().getExtras().toString());
+        //Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+        //       R.drawable.sample6);
+
+        byte[] img = getIntent().getByteArrayExtra("image");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        imageView.setImageBitmap(bitmap);
 
         // create barcode detector
         BarcodeDetector detector =
