@@ -29,6 +29,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static edu.uml.cs.jmerrill.fridge_friend.R.styleable.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                //imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
                 File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 try {
                     imgFile = File.createTempFile("barcode", ".jpg", storageDir);
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
         //list of all prods
         ArrayList array_list = productdb.getAllProducts();
+
+        UpcItem tempItem = new UpcItem("Name", "Id", ItemType.DAIRY);
+        array_list.add(tempItem);
+
         ItemAdapter adapter = new ItemAdapter(this, array_list);
         lvMain.setAdapter(adapter);
         //ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_list);

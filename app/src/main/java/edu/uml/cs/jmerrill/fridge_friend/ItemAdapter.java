@@ -16,6 +16,8 @@ import java.util.Calendar;
 
 public class ItemAdapter extends ArrayAdapter<UpcItem>{
 
+    UpcItem currentItem;
+
     public ItemAdapter(Context context, ArrayList<UpcItem> items) {
         super(context, 0, items);
     }
@@ -29,14 +31,18 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
                     R.layout.list_item, parent, false);
         }
 
-        UpcItem currentItem = getItem(position);
+        currentItem = getItem(position);
 
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.tv_item_name);
         nameTextView.setText(currentItem.getName());
 
-        TextView shelfLifeTextView = (TextView) listItemView.findViewById(R.id.tv_item_shelf_life);
-        nameTextView.setText(currentItem.getExpDate().toString());
+        TextView expirationDateTextView = (TextView) listItemView.findViewById(R.id.tv_item_expiration_date);
+        expirationDateTextView.setText(currentItem.getExpDate().toString());
 
         return listItemView;
+    }
+
+    UpcItem getCurrentItem() {
+        return currentItem;
     }
 }

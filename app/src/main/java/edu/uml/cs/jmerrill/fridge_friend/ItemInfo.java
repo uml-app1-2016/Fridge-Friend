@@ -19,16 +19,16 @@ public class ItemInfo extends AppCompatActivity {
         Intent thisIntent = getIntent();
         final UpcItem upcItem = (UpcItem) getIntent().getSerializableExtra("upcItem");
 
-        TextView tvItemName = (TextView) findViewById(R.id.tv_item_name);
+        TextView tvItemName = (TextView) findViewById(R.id.tv_item_info_name);
         tvItemName.setText(upcItem.getName());
 
-        TextView tvDateAdded = (TextView) findViewById(R.id.tv_date_added);
+        TextView tvDateAdded = (TextView) findViewById(R.id.tv_item_info_date_added);
         tvDateAdded.setText(upcItem.getDateAdded().toString());
 
-        TextView tvItemType = (TextView) findViewById(R.id.tv_item_type);
+        TextView tvItemType = (TextView) findViewById(R.id.tv_item_info_type);
         tvItemType.setText(upcItem.getItemType().toString());
 
-        TextView tvExpirationDate = (TextView) findViewById(R.id.tv_expiration_date);
+        TextView tvExpirationDate = (TextView) findViewById(R.id.tv_item_info_expiration_date);
         tvExpirationDate.setText(upcItem.getExpDate().toString());
 
         Button btnRemoveItem = (Button) findViewById(R.id.btn_remove_item);
