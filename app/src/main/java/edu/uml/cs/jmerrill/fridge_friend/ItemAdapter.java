@@ -29,13 +29,14 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
                     R.layout.list_item, parent, false);
         }
 
-        UpcItem currentItem = getItem(position);
 
-        TextView nameTextView = (TextView) listItemView.findViewById(R.id.tv_item_name);
-        nameTextView.setText(currentItem.getName());
+        UpcItem currentItem = (UpcItem) getItem(position);
 
-        TextView shelfLifeTextView = (TextView) listItemView.findViewById(R.id.tv_item_shelf_life);
-        nameTextView.setText(currentItem.getExpDate().toString());
+            TextView nameTextView = (TextView) listItemView.findViewById(R.id.tv_item_name);
+            nameTextView.setText(currentItem.getName());
+
+            TextView shelfLifeTextView = (TextView) listItemView.findViewById(R.id.tv_item_shelf_life);
+            nameTextView.setText(currentItem.getExpDate().toString());
 
         return listItemView;
     }

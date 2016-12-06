@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="@dimen/image_lv_thumbnail_dimens"
         android:layout_height="@dimen/image_lv_thumbnail_dimens"
-        android:id="img_lv_thumbnail"
+        android:id="@+id/img_lv_thumbnail"
         android:src="@drawable/common_signin_btn_icon_light"/>
 
     <LinearLayout

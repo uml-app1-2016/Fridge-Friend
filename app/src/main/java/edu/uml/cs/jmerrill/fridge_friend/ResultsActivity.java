@@ -33,6 +33,7 @@ public class ResultsActivity extends AppCompatActivity implements
     DBHelper productdb;
     public UpcItem upcItem;
 
+
     private static final String LOG_TAG = ResultsActivity.class.getSimpleName();
     private static final int UPC_LOADER_ID = 1;
 
@@ -54,14 +55,14 @@ public class ResultsActivity extends AppCompatActivity implements
         } else {
             Log.e(LOG_TAG, "Could not connect");
         }
-
+        productdb = new DBHelper(this);
         Button btnAddItem = (Button) findViewById(R.id.btn_add_item);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 productdb.insertProduct(upcItem);
-                //Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -132,7 +133,7 @@ public class ResultsActivity extends AppCompatActivity implements
 
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
-        
+
 
     }
 

@@ -28,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        
+        //call to init database
         db.execSQL(
                 "create table products " +
                         "(id integer primary key, name text,type enum,shelflife integer, upc text)"
@@ -37,18 +37,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        
-        db.execSQL("DROP TABLE IF EXISTS contacts");
+        //delete table and rebuild
+        db.execSQL("DROP TABLE IF EXISTS products");
         onCreate(db);
     }
 
     public boolean insertProduct (UpcItem upc) {
-
+        //grab from passed upc
         String name = upc.getName();
         ItemType type = upc.getItemType();
         int shelflife = upc.getShelfLife();
         String upccode = upc.getId();
 
+
+        //pass to db
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
@@ -61,24 +63,27 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getData(UpcItem id) {
+        //get all data for passed uoc in db
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from products where upc="+id+"", null );
         return res;
     }
 
     public int numberOfRows(){
+        //count rows
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, PRODUCTS_TABLE_NAME);
         return numRows;
     }
 
     public boolean updateProduct (UpcItem upc) {
-
+        //get data from passed upc
         String name = upc.getName();
         ItemType type = upc.getItemType();
         int shelflife = upc.getShelfLife();
         String upccode = upc.getId();
 
+        //send to database
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
@@ -90,6 +95,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Integer deleteProduct (UpcItem upc) {
+
+        //use upc id to locate and remove product from db
         String upccode = upc.getId();
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("products",
@@ -98,6 +105,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getAllProducts() {
+
+        //to print full db in activity
         ArrayList<String> array_list = new ArrayList<String>();
 
         //hp = new HashMap();
