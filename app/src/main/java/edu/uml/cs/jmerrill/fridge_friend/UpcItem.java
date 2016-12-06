@@ -1,5 +1,7 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.Calendar;
 
 public class UpcItem {
@@ -8,6 +10,7 @@ public class UpcItem {
     private int shelfLife;
     private ItemType itemType;
     private Calendar dateAdded;
+    private Drawable thumbnail;
 
     public UpcItem(String name, String id, ItemType itemType){
         this.name = name;
@@ -82,5 +85,13 @@ public class UpcItem {
                 }
             }
         }
+    }
+
+    public Drawable getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Drawable thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

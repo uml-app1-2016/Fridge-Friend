@@ -1,5 +1,7 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -8,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,32 +22,73 @@ public final class NetworkUtils {
 
     private static final String UPC_DB_KEY = "467287e945bf7c1faad565a46139211f";
 
-    private static final String REQUEST_URL = "http://api.upcdatabase.org/json/";
+    private static final String GOOGLE_KEY = "AIzaSyDheIQEbgnR11htdXKOMJj3D5xLfceHgV4";
+
+    private static final String UPC_REQUEST_URL = "http://api.upcdatabase.org/json/";
+
+    private static final String SEARCH_REQUEST_URL = "https://www.googleapis.com/customsearch/v1";
+
+    private static final String CSE = "005068381006029258478:me6cxr6zfau";
 
     private NetworkUtils() { }
 
     public static UpcItem fetchUpcItem(String code) {
-        String urlString = REQUEST_URL + UPC_DB_KEY + "/" + code;
+        String urlString = UPC_REQUEST_URL + UPC_DB_KEY + "/" + code;
         Log.d(LOG_TAG, urlString);
 
-        URL url = null;
+        URL upcUrl = null, thumbnailUrl = null;
 
         try {
-            url = new URL(urlString);
+            upcUrl = new URL(urlString);
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Problem building the URL ", e);
+            Log.e(LOG_TAG, "Problem building the UPC URL ", e);
         }
 
         String jsonResponse = null;
 
         try {
-            jsonResponse = makeHttpRequest(url);
+            jsonResponse = makeHttpRequest(upcUrl);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request ", e);
+            Log.e(LOG_TAG, "Problem making the UPC HTTP request ", e);
         }
 
-        UpcItem upcItem = extractFeatureFromJson(jsonResponse);
+        UpcItem upcItem = extractUPCFromJson(jsonResponse);
+
+        if(upcItem != null) {
+            try {
+                thumbnailUrl = new URL(buildThumbnailUrl(upcItem.getName()));
+                String thumbnailJSON = makeHttpRequest(thumbnailUrl);
+                Drawable thumbnail = extractThumbnailFromJSON(thumbnailJSON);
+                upcItem.setThumbnail(thumbnail);
+            } catch (MalformedURLException e) {
+                Log.e(LOG_TAG, "Problem building the thumbnail URL ", e);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Problem making the thumbnail HTTP request ", e);
+            }
+
+        }
         return upcItem;
+    }
+
+    private static String buildThumbnailUrl(String name) {
+        Uri baseUri = Uri.parse(SEARCH_REQUEST_URL);
+        String url = null;
+
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("key", GOOGLE_KEY);
+        uriBuilder.appendQueryParameter("cx", CSE);
+        uriBuilder.appendQueryParameter("q", name);
+        uriBuilder.appendQueryParameter("searchType", "image");
+        uriBuilder.appendQueryParameter("fileType", "jpg");
+        uriBuilder.appendQueryParameter("imgSize", "small");
+        //uriBuilder.appendQueryParameter("alt", "json");
+
+        Log.d(LOG_TAG, uriBuilder.toString());
+
+        url = uriBuilder.toString();
+
+        return url;
     }
 
     private static String makeHttpRequest(URL url) throws IOException {
@@ -68,7 +112,7 @@ public final class NetworkUtils {
         return stringBuilder.toString();
     }
 
-    private static UpcItem extractFeatureFromJson(String upcItemJSON) {
+    private static UpcItem extractUPCFromJson(String upcItemJSON) {
         // Check if JSON string is empty or null
         if(TextUtils.isEmpty(upcItemJSON)) {
             return null;
@@ -84,10 +128,35 @@ public final class NetworkUtils {
 
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing the JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the UPC JSON results", e);
         }
 
         return upcItem;
+    }
+
+    private static Drawable extractThumbnailFromJSON(String thumbnailUrl) {
+        if(TextUtils.isEmpty(thumbnailUrl)) {
+            return null;
+        }
+
+        Drawable thumbnail = null;
+        try {
+            JSONObject baseJsonResponse = new JSONObject(thumbnailUrl);
+
+            //JSONObject image = baseJsonResponse.getJSONObject("image");
+            String link = baseJsonResponse.getString("link");
+
+            InputStream imageSource;
+
+            imageSource = (InputStream) new URL(link).getContent();
+            thumbnail = Drawable.createFromStream(imageSource, link);
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, "Problem parsing the thumbnail JSON results", e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return thumbnail;
     }
 }
 

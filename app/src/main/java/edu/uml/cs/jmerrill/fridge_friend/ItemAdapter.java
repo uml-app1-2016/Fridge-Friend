@@ -16,7 +16,7 @@ import java.util.Calendar;
 
 public class ItemAdapter extends ArrayAdapter<UpcItem>{
 
-    UpcItem currentItem;
+    private UpcItem currentItem;
 
     public ItemAdapter(Context context, ArrayList<UpcItem> items) {
         super(context, 0, items);
@@ -31,7 +31,7 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
                     R.layout.list_item, parent, false);
         }
 
-        currentItem = getItem(position);
+        currentItem = (UpcItem) getItem(position);
 
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.tv_item_name);
         nameTextView.setText(currentItem.getName());
