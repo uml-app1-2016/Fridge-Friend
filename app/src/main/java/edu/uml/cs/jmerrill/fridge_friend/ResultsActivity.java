@@ -61,6 +61,7 @@ public class ResultsActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 productdb.insertProduct(upcItem);
+                //productdb.deleteProduct(upcItem);
                 Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -105,16 +106,23 @@ public class ResultsActivity extends AppCompatActivity implements
         Frame frame = new Frame.Builder().setBitmap(bitmap).build();
         SparseArray<Barcode> barcodes = detector.detect(frame);
 
-        // detect barcode
-        Barcode barcode = barcodes.valueAt(0);
-        String barcode_id;
+        getBaseContext().deleteFile("barcode.jpg");
 
-        if (barcode != null) {
-            barcode_id = "0" + barcode.rawValue;
+        String barcode_id;
+        if (barcodes != null) {
+            // detect barcode
+            Barcode barcode = barcodes.valueAt(0);
+            if (barcode.rawValue.length() != 12) {
+                barcode_id = "0" + barcode.rawValue;
+            } else {
+                barcode_id = barcode.rawValue;
+            }
+
         } else {
             Log.e(LOG_TAG, "Bitmap did not return barcode");
             barcode_id = "00000000000";
         }
+
 
         Log.d(LOG_TAG, barcode_id);
         return new UpcItemLoader(this, barcode_id);

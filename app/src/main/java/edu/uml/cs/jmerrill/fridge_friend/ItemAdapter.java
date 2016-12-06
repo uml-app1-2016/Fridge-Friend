@@ -1,12 +1,14 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -16,7 +18,7 @@ import java.util.Calendar;
 
 public class ItemAdapter extends ArrayAdapter<UpcItem>{
 
-    private UpcItem currentItem;
+    //private UpcItem currentItem;
 
     public ItemAdapter(Context context, ArrayList<UpcItem> items) {
         super(context, 0, items);
@@ -31,18 +33,25 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
                     R.layout.list_item, parent, false);
         }
 
-        currentItem = (UpcItem) getItem(position);
+        //String temp = (String) getItem(position);
+
+        Object currentObject = getItem(position);
+        Log.d(getClass().getSimpleName(), currentObject.getClass().toString());
+
+        UpcItem currentItem = (UpcItem) currentObject;
 
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.tv_item_name);
         nameTextView.setText(currentItem.getName());
 
         TextView expirationDateTextView = (TextView) listItemView.findViewById(R.id.tv_item_expiration_date);
-        expirationDateTextView.setText(currentItem.getExpDate().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
+        expirationDateTextView.setText("Exp. Date: " + dateFormat.format(currentItem.getExpDate().getTime()));
 
         return listItemView;
     }
 
     UpcItem getCurrentItem() {
+        UpcItem currentItem = new UpcItem("Name", "ID", ItemType.DAIRY);
         return currentItem;
     }
 }

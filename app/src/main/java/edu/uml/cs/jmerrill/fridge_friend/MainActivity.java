@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
         ListView lvMain = (ListView) findViewById(R.id.lv_main);
 
         //list of all prods
-        ArrayList array_list = productdb.getAllProducts();
+        //ArrayList array_list = productdb.getAllProducts();
+        ArrayList array_list = new ArrayList<UpcItem>();
 
         UpcItem tempItem = new UpcItem("Name", "Id", ItemType.DAIRY);
         array_list.add(tempItem);
