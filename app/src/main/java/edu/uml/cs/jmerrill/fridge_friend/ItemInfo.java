@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 public class ItemInfo extends AppCompatActivity {
 
@@ -23,13 +24,14 @@ public class ItemInfo extends AppCompatActivity {
         tvItemName.setText(upcItem.getName());
 
         TextView tvDateAdded = (TextView) findViewById(R.id.tv_item_info_date_added);
-        tvDateAdded.setText(upcItem.getDateAdded().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
+        tvDateAdded.setText("Date Added: " + dateFormat.format(upcItem.getDateAdded().getTime());
 
         TextView tvItemType = (TextView) findViewById(R.id.tv_item_info_type);
-        tvItemType.setText(upcItem.getItemType().toString());
+        tvItemType.setText("Item Type: " + upcItem.getItemType().toString());
 
         TextView tvExpirationDate = (TextView) findViewById(R.id.tv_item_info_expiration_date);
-        tvExpirationDate.setText(upcItem.getExpDate().toString());
+        tvExpirationDate.setText("Exp. Date: " + dateFormat.format(upcItem.getExpDate().getTime()));
 
         Button btnRemoveItem = (Button) findViewById(R.id.btn_remove_item);
         btnRemoveItem.setOnClickListener(new View.OnClickListener() {
