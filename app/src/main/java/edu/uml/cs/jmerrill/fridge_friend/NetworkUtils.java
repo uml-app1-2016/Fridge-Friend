@@ -60,6 +60,7 @@ public final class NetworkUtils {
                 String thumbnailJSON = makeHttpRequest(thumbnailUrl);
                 Drawable thumbnail = extractThumbnailFromJSON(thumbnailJSON);
                 upcItem.setThumbnail(thumbnail);
+                upcItem.applyItemType();
             } catch (MalformedURLException e) {
                 Log.e(LOG_TAG, "Problem building the thumbnail URL ", e);
             } catch (IOException e) {
@@ -82,6 +83,7 @@ public final class NetworkUtils {
         uriBuilder.appendQueryParameter("searchType", "image");
         uriBuilder.appendQueryParameter("fileType", "jpg");
         uriBuilder.appendQueryParameter("imgSize", "small");
+        uriBuilder.appendQueryParameter("num", "1");
         //uriBuilder.appendQueryParameter("alt", "json");
 
         Log.d(LOG_TAG, uriBuilder.toString());

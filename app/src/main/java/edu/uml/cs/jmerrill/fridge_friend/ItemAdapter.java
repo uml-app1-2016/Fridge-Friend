@@ -6,15 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-/**
- * Created by Sam on 12/3/2016.
- */
 
 public class ItemAdapter extends ArrayAdapter<UpcItem>{
 
@@ -46,6 +43,10 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
         TextView expirationDateTextView = (TextView) listItemView.findViewById(R.id.tv_item_expiration_date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
         expirationDateTextView.setText("Exp. Date: " + dateFormat.format(currentItem.getExpDate().getTime()));
+
+        ImageView thumbnailImageView = (ImageView) listItemView.findViewById(R.id.img_lv_thumbnail);
+
+        //thumbnailImageView.setImageBitmap();
 
         return listItemView;
     }
