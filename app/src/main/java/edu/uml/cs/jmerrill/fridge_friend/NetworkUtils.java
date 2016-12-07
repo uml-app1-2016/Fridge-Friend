@@ -61,7 +61,9 @@ public final class NetworkUtils {
                 String thumbnailJSON = makeHttpRequest(thumbnailUrl);
                 Drawable thumbnail = extractThumbnailFromJSON(thumbnailJSON);
                 upcItem.setThumbnail(thumbnail);
-                upcItem.applyItemType();
+                Log.d(LOG_TAG, "applying the type");
+                //upcItem.applyItemType();
+                Log.d(LOG_TAG, "applied the type");
             } catch (MalformedURLException e) {
                 Log.e(LOG_TAG, "Problem building the thumbnail URL ", e);
             } catch (IOException e) {
@@ -69,6 +71,7 @@ public final class NetworkUtils {
             }
 
         }
+        Log.d(LOG_TAG, "made the UPC item!");
         return upcItem;
     }
 

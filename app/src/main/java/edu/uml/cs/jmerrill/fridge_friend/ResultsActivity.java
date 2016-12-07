@@ -109,7 +109,7 @@ public class ResultsActivity extends AppCompatActivity implements
         getBaseContext().deleteFile("barcode.jpg");
 
         String barcode_id;
-        if (barcodes != null) {
+        if (barcodes.size() != 0) {
             // detect barcode
             Barcode barcode = barcodes.valueAt(0);
             if (barcode.rawValue.length() != 12) {
@@ -135,6 +135,8 @@ public class ResultsActivity extends AppCompatActivity implements
             upcItem = data;
             Log.d(LOG_TAG, upcItem.getId());
         }
+
+        upcItem.applyItemType();
 
         TextView nameView = (TextView) findViewById(R.id.item_name);
         TextView idView = (TextView) findViewById(R.id.item_id);
