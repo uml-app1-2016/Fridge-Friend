@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -145,9 +146,10 @@ public final class NetworkUtils {
         try {
             JSONObject baseJsonResponse = new JSONObject(thumbnailUrl);
 
-            //JSONObject image = baseJsonResponse.getJSONObject("image");
-            String link = baseJsonResponse.getString("link");
-
+            JSONArray imageArray = baseJsonResponse.getJSONArray("items");
+            JSONObject imageInfo = imageArray.getJSONObject(0);
+            String link = imageInfo.getString("link");
+            Log.d(LOG_TAG, "link = " + link);
             InputStream imageSource;
 
             imageSource = (InputStream) new URL(link).getContent();
