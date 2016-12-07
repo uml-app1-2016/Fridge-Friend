@@ -5,8 +5,7 @@ public enum ItemType {
     PRODUCE(7, Keywords.PRODUCE_KEYWORDS),
     MEAT(7, Keywords.MEAT_KEYWORDS),
     BAKERY(14, Keywords.BAKERY_KEYWORDS),
-    PACKAGED(365, null),
-    DEFAULT(21, null);
+    PACKAGED(365, Keywords.PACKAGED_KEYWORDS);
 
     private final int shelfLife;  // in days
     private final String[] keywords;
@@ -113,5 +112,7 @@ public enum ItemType {
                         "chicken",
                         "burger",
                         "fillet"};
+
+        private static final String[] PACKAGED_KEYWORDS = {};
     }
 }

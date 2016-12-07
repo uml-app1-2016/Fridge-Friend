@@ -26,7 +26,7 @@ public class UpcItem {
     public UpcItem(String name, String id) {
         this.name = name;
         this.id = id;
-        this.itemType = ItemType.DEFAULT;
+        this.itemType = ItemType.PACKAGED;
         this.shelfLife = itemType.getShelfLife();
     }
 

@@ -71,26 +71,20 @@ public class ResultsActivity extends AppCompatActivity implements
 
     @Override
     public Loader<UpcItem> onCreateLoader(int id, Bundle args) {
-        ImageView imageView = (ImageView) findViewById(R.id.imgview);
-
         Log.d(LOG_TAG, "yup the loader's getting made");
 
-        //image path is Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "barcode.jpg"
         imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
-        //Intent intent = getIntent();
-        //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
 
         if(getIntent().getExtras() == null) {
             Log.d(LOG_TAG, "It's null oh no");
         }
 
         Log.d(LOG_TAG, getIntent().getExtras().toString());
-        //Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-        //       R.drawable.sample6);
+
 
         byte[] img = getIntent().getByteArrayExtra("image");
         Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-        imageView.setImageBitmap(bitmap);
 
         // create barcode detector
         BarcodeDetector detector =
@@ -131,6 +125,7 @@ public class ResultsActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<UpcItem> loader, UpcItem data) {
+        ImageView imageView = (ImageView) findViewById(R.id.imgview);
 
         if(data != null) {
             upcItem = data;
@@ -138,6 +133,8 @@ public class ResultsActivity extends AppCompatActivity implements
         }
 
         upcItem.applyItemType();
+
+        imageView.setImageDrawable(upcItem.getThumbnail());
 
         TextView nameView = (TextView) findViewById(R.id.item_name);
         TextView idView = (TextView) findViewById(R.id.item_id);
