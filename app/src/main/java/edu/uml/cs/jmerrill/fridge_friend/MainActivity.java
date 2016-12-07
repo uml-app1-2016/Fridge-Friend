@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                         //Bitmap bm = decodeSampledBitmapFromFile(imgFile.getAbsolutePath(), 100, 100);
+                        Log.d("MainActivity", "Entering ResultActivity");
                         startActivity(intent);
                     } else {
                         Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();

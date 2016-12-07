@@ -39,6 +39,7 @@ public class ResultsActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("ResultsActivity", "Entered ResultsActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 

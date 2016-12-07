@@ -30,8 +30,6 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
                     R.layout.list_item, parent, false);
         }
 
-        //String temp = (String) getItem(position);
-
         Object currentObject = getItem(position);
         Log.d(getClass().getSimpleName(), currentObject.getClass().toString());
 
@@ -44,7 +42,7 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
         SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
         expirationDateTextView.setText("Exp. Date: " + dateFormat.format(currentItem.getExpDate().getTime()));
 
-        ImageView thumbnailImageView = (ImageView) listItemView.findViewById(R.id.img_lv_thumbnail);
+        //ImageView thumbnailImageView = (ImageView) listItemView.findViewById(R.id.img_lv_thumbnail);
 
         //thumbnailImageView.setImageBitmap();
 
