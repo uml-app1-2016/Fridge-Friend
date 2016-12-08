@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
@@ -148,6 +149,13 @@ public class ResultsActivity extends AppCompatActivity implements
         upcItem.applyItemType();
 
         Bitmap thumbnailBitmap = BitmapFactory.decodeByteArray(upcItem.getThumbnail(), 0, upcItem.getThumbnail().length);
+
+        // setting a default image for not-found codes
+        if (!(upcItem.getName().equals("not-found"))) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground(getResources().getDrawable(R.drawable.cast_album_art_placeholder));
+            }
+        }
         imageView.setImageBitmap(thumbnailBitmap);
 
         TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
@@ -159,7 +167,7 @@ public class ResultsActivity extends AppCompatActivity implements
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
         typeView.setText(upcItem.getItemType().toString());
-        //expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
+        expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
 
 
 
