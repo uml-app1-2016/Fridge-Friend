@@ -23,6 +23,23 @@ public enum ItemType {
         return keywords;
     }
 
+    public static ItemType getValueAt(int val) {
+        switch (val) {
+            case 0:
+                return DAIRY;
+            case 1:
+                return PRODUCE;
+            case 2:
+                return MEAT;
+            case 3:
+                return BAKERY;
+            case 4:
+                return PACKAGED;
+            default:
+                return PACKAGED;
+        }
+    }
+
     private static class Keywords {
         private static final String[] PRODUCE_KEYWORDS =
                 {"mango",
