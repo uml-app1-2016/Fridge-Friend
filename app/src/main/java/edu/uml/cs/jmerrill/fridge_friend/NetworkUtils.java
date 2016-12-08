@@ -21,7 +21,9 @@ public final class NetworkUtils {
 
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String UPC_DB_KEY = "467287e945bf7c1faad565a46139211f";
+    //private static final String UPC_DB_KEY = "467287e945bf7c1faad565a46139211f";
+    private static final String UPC_DB_KEY = "f7a8e84f3b341db3d2f8c3bff9435931";
+
 
     private static final String GOOGLE_KEY = "AIzaSyDheIQEbgnR11htdXKOMJj3D5xLfceHgV4";
 

@@ -15,15 +15,13 @@
         android:id="@+id/tv_item_info_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Name"
-            android:layout_gravity="center" />
+        android:textSize="20sp" android:layout_gravity="center" />
 
         <ImageView
         android:layout_width="@dimen/item_info_thumbnail_dimens"
         android:layout_height="@dimen/item_info_thumbnail_dimens"
         android:id="@+id/img_item_info_thumbnail"
-        android:src="@drawable/common_signin_btn_icon_light"
+        android:src="@drawable/cast_album_art_placeholder"
         android:layout_gravity="top|center" />
 
         <LinearLayout
@@ -37,7 +35,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="Date Added: "
                 android:layout_marginTop="10dp" />
 
             <TextView
@@ -45,7 +42,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="Item Type: "
                 android:layout_marginTop="10dp"/>
 
             <TextView
@@ -53,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="Exp Date: "
                 android:layout_marginTop="10dp"/>
 
             </LinearLayout>
