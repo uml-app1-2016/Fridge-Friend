@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -61,7 +62,7 @@ public final class NetworkUtils {
             try {
                 thumbnailUrl = new URL(buildThumbnailUrl(upcItem.getName()));
                 String thumbnailJSON = makeHttpRequest(thumbnailUrl);
-                Drawable thumbnail = extractThumbnailFromJSON(thumbnailJSON);
+                byte[] thumbnail = extractThumbnailFromJSON(thumbnailJSON);
                 upcItem.setThumbnail(thumbnail);
             } catch (MalformedURLException e) {
                 Log.e(LOG_TAG, "Problem building the thumbnail URL ", e);
@@ -141,12 +142,12 @@ public final class NetworkUtils {
         return upcItem;
     }
 
-    private static Drawable extractThumbnailFromJSON(String thumbnailUrl) {
+    private static byte[] extractThumbnailFromJSON(String thumbnailUrl) {
         if(TextUtils.isEmpty(thumbnailUrl)) {
             return null;
         }
 
-        Drawable thumbnail = null;
+        byte[] thumbnail = null;
         try {
             JSONObject baseJsonResponse = new JSONObject(thumbnailUrl);
 
@@ -157,7 +158,19 @@ public final class NetworkUtils {
             InputStream imageSource;
 
             imageSource = (InputStream) new URL(link).getContent();
-            thumbnail = Drawable.createFromStream(imageSource, link);
+
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int len;
+            byte[] chunk = new byte[16384];
+
+            while ((len = imageSource.read(chunk, 0, chunk.length)) != -1) {
+                buffer.write(chunk, 0, len);
+            }
+
+            buffer.flush();
+
+            thumbnail = buffer.toByteArray();
+            //thumbnail = Drawable.createFromStream(imageSource, link);
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the thumbnail JSON results", e);
         } catch (IOException e) {
