@@ -78,13 +78,17 @@ public class MainActivity extends AppCompatActivity {
         //ArrayList array_list = productdb.getAllProducts();
         ArrayList<UpcItem> array_list = null;
 //this line is broken, unccoment outto test
-//        if(productdb.numberOfRows() > 0) array_list = productdb.getAllProducts();
+        if(productdb.numberOfRows() > 0) {
+            array_list = productdb.getAllProducts();
+            ItemAdapter adapter = new ItemAdapter(this, array_list);
+            lvMain.setAdapter(adapter);
+
+        }
 
         //UpcItem tempItem = new UpcItem("Name", "Id", ItemType.DAIRY);
         //array_list.add(tempItem);
 
-        ItemAdapter adapter = new ItemAdapter(this, array_list);
-        lvMain.setAdapter(adapter);
+
 
     /*
         //list of all prods
