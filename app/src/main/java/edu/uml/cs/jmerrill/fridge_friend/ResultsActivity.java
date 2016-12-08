@@ -30,6 +30,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
@@ -160,7 +161,8 @@ public class ResultsActivity extends AppCompatActivity implements
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
         typeView.setText(upcItem.getItemType().toString());
-        //expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
+        //Log.d("ResultsActivity", "ShelfLife: " + s)
+        expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
 
 
 

@@ -23,7 +23,7 @@ public class UpcItem implements Serializable {
         this.shelfLife = itemType.getShelfLife();
 
         // gets current date
-        this.dateAdded = Calendar.getInstance();
+        dateAdded = Calendar.getInstance();
     }
 
     // temp constructor
@@ -68,13 +68,25 @@ public class UpcItem implements Serializable {
         dateAdded.set(year, month, day);
     }
 
+    public void setDateAdded(Calendar cal) { dateAdded = Calendar.getInstance(); }
+
     /**
      * gets the expiration date as a function of the date added and the shelf life
      * @return expiration date as a {@link Calendar} object
      */
     public Calendar getExpDate() {
+        setDateAdded(Calendar.getInstance());
+        if (itemType != null) {
+            setShelfLife(itemType.getShelfLife());
+        } else {
+            setShelfLife(365);
+        }
         Calendar expDate = dateAdded;
+        if (expDate == null) {
+            Log.d("UpcItem", "expDate is Null!");
+        }
 
+        Log.d("UpcItem", "shelf life: " + shelfLife);
         expDate.add(Calendar.DATE, shelfLife);
         return expDate;
     }
