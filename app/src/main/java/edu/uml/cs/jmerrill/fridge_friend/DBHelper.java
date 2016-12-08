@@ -106,6 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<UpcItem> getAllProducts() {
 
+        if(numberOfRows() <= 1) return null;
         //to print full db in activity
         ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
 
@@ -119,8 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
             temp.setName(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_NAME)));
            temp.setId(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID)));
-
-          //  temp.setItemType(ItemType.getItemType(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));
+            temp.setItemType(ItemType.getValueAt(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));
 
             array_list.add(temp);
             res.moveToNext();
