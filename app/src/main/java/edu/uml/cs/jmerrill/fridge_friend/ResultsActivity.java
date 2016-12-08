@@ -64,10 +64,10 @@ public class ResultsActivity extends AppCompatActivity implements
 
         // convert Drawable to Byte Array for storage
         // TODO: add byte array to the db
-        Bitmap thumbnailBitmap = ((BitmapDrawable) upcItem.getThumbnail()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] thumbnailBytes = stream.toByteArray();
+        //Bitmap thumbnailBitmap = ((BitmapDrawable) upcItem.getThumbnail()).getBitmap();
+        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        //thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        //byte[] thumbnailBytes = stream.toByteArray();
 
         Button btnAddItem = (Button) findViewById(R.id.btn_results_add_item);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
