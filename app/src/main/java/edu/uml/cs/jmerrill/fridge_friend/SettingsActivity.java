@@ -143,12 +143,40 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        Button btnDefaultSettings = (Button) findViewById(R.id.btn_default_settings);
+        btnDefaultSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setTitle("Reset to default settings?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                        intent.putExtra("Settings", new FilterSortSettings());
+                        Toast.makeText(getApplicationContext(), "Reset to default settings.", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
         Button btnSaveSettings = (Button) findViewById(R.id.btn_save_settings);
         btnSaveSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setTitle("Save Settings?");
+                builder.setTitle("Save settings?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
