@@ -50,7 +50,7 @@ public class ItemInfo extends AppCompatActivity {
                 BitmapFactory.decodeByteArray(upcItem.getThumbnail(), 0, upcItem.getThumbnail().length);
 
         imgThumbnail.setImageBitmap(thumbnail);
-        
+
         Button btnRemoveItem = (Button) findViewById(R.id.btn_item_info_remove_item);
         btnRemoveItem.setOnClickListener(new View.OnClickListener() {
             @Override

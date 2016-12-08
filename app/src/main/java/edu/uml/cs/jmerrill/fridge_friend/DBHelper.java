@@ -48,12 +48,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertProduct (UpcItem upc, byte[] thumbnail) {
+    public boolean insertProduct (UpcItem upc) {
         //grab from passed upc
         String name = upc.getName();
         ItemType type = upc.getItemType();
         int shelflife = upc.getShelfLife();
         String upccode = upc.getId();
+        byte[] thumbnail = upc.getThumbnail();
 
 
         //pass to db
@@ -90,6 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ItemType type = upc.getItemType();
         int shelflife = upc.getShelfLife();
         String upccode = upc.getId();
+        byte[] thumbnail = upc.getThumbnail();
 
         //send to database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -98,6 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("type", String.valueOf(type));
         contentValues.put("shelflife", shelflife);
         contentValues.put("upc", upccode);
+        contentValues.put("thumbnail", thumbnail);
         db.update("products", contentValues, "upc = ? ", new String[] { upccode } );
         return true;
     }
@@ -131,6 +134,8 @@ public class DBHelper extends SQLiteOpenHelper {
             temp.setId(res.getString(0));
             temp.setName(res.getString(1));
             temp.setItemType(ItemType.getValueAt(res.getInt(2)));
+            // retrieve the thumbnail from the blob entry in the db
+            temp.setThumbnail(res.getBlob(0));
   //         temp.setId(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID)));
 
     //        temp.setItemType(ItemType.getValueAt(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));

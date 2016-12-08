@@ -34,7 +34,6 @@ public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
 
     File imgFile;
-    byte[] thumbnailBytes;
     DBHelper productdb;
     public UpcItem upcItem;
 
@@ -67,7 +66,7 @@ public class ResultsActivity extends AppCompatActivity implements
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productdb.insertProduct(upcItem, thumbnailBytes);
+                productdb.insertProduct(upcItem);
                 //productdb.deleteProduct(upcItem);
                 Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -150,10 +149,6 @@ public class ResultsActivity extends AppCompatActivity implements
 
         Bitmap thumbnailBitmap = BitmapFactory.decodeByteArray(upcItem.getThumbnail(), 0, upcItem.getThumbnail().length);
         imageView.setImageBitmap(thumbnailBitmap);
-
-        // convert Drawable to Byte Array for storage
-        // TODO: add byte array to the db
-
 
         TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
         TextView idView = (TextView) findViewById(R.id.tv_results_item_id);
