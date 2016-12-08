@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,17 +108,24 @@
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:text="Default Settings"
+            android:id="@+id/btn_default_settings"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
             android:text="Delete All Items"
             android:id="@+id/btn_clear_database"
             android:layout_gravity="center" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
             android:text="Save Settings"
-            android:id="@+id/btn_save_settings"/>
+            android:id="@+id/btn_save_settings" />
 
     </LinearLayout>
 
