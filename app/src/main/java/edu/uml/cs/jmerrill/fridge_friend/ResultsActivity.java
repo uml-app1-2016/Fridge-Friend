@@ -69,7 +69,7 @@ public class ResultsActivity extends AppCompatActivity implements
         thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] thumbnailBytes = stream.toByteArray();
 
-        Button btnAddItem = (Button) findViewById(R.id.btn_add_item);
+        Button btnAddItem = (Button) findViewById(R.id.btn_results_add_item);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +145,7 @@ public class ResultsActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<UpcItem> loader, UpcItem data) {
-        ImageView imageView = (ImageView) findViewById(R.id.imgview);
+        ImageView imageView = (ImageView) findViewById(R.id.iv_results_thumbnail);
 
         if(data != null) {
             upcItem = data;
@@ -156,10 +156,10 @@ public class ResultsActivity extends AppCompatActivity implements
 
         imageView.setImageDrawable(upcItem.getThumbnail());
 
-        TextView nameView = (TextView) findViewById(R.id.item_name);
-        TextView idView = (TextView) findViewById(R.id.item_id);
-        TextView typeView = (TextView) findViewById(R.id.item_type);
-        TextView expDateView = (TextView) findViewById(R.id.item_exp_date);
+        TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
+        TextView idView = (TextView) findViewById(R.id.tv_results_item_id);
+        TextView typeView = (TextView) findViewById(R.id.tv_results_item_type);
+        TextView expDateView = (TextView) findViewById(R.id.tv_results_item_expiration_date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
 
         nameView.setText(upcItem.getName());

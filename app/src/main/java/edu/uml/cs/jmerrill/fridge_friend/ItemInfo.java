@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
@@ -20,7 +22,6 @@ public class ItemInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_info);
 
-        Intent thisIntent = getIntent();
         final UpcItem upcItem = (UpcItem) getIntent().getSerializableExtra("UpcItem");
 
         TextView tvItemName = (TextView) findViewById(R.id.tv_item_info_name);
@@ -28,15 +29,18 @@ public class ItemInfo extends AppCompatActivity {
 
         TextView tvDateAdded = (TextView) findViewById(R.id.tv_item_info_date_added);
         SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
-        tvDateAdded.setText("Date Added: " + dateFormat.format(upcItem.getDateAdded().getTime()));
+        tvDateAdded.setText(dateFormat.format(upcItem.getDateAdded().getTime()));
 
         TextView tvItemType = (TextView) findViewById(R.id.tv_item_info_type);
-        tvItemType.setText("Item Type: " + upcItem.getItemType().toString());
+        tvItemType.setText(upcItem.getItemType().toString());
 
         TextView tvExpirationDate = (TextView) findViewById(R.id.tv_item_info_expiration_date);
-        tvExpirationDate.setText("Exp. Date: " + dateFormat.format(upcItem.getExpDate().getTime()));
+        tvExpirationDate.setText(dateFormat.format(upcItem.getExpDate().getTime()));
 
-        Button btnRemoveItem = (Button) findViewById(R.id.btn_remove_item);
+        TextView tvUpcCode = (TextView) findViewById(R.id.tv_item_info_upc_code);
+        tvUpcCode.setText(upcItem.getId());
+
+        Button btnRemoveItem = (Button) findViewById(R.id.btn_item_info_remove_item);
         btnRemoveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

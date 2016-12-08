@@ -1,14 +1,10 @@
 <resources>
     <string name="app_name">Fridge-Friend</string>
-    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="add_item_button">Add Item</string>
+    <string name="btn_results_add_item">Add Item</string>
     <string name="cancel_add_button">Cancel</string>
-    <string name="btn_remove_item">Remove Item</string>
+    <string name="btn_item_info_remove_item">Remove Item</string>
     <string name="title_activity_setting">Settings</string>
 
     <!-- Strings related to Settings -->

@@ -40,7 +40,7 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
         SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
         expirationDateTextView.setText("Exp. Date: " + dateFormat.format(currentItem.getExpDate().getTime()));
 
-        //ImageView thumbnailImageView = (ImageView) listItemView.findViewById(R.id.img_lv_thumbnail);
+        //ImageView thumbnailImageView = (ImageView) listItemView.findViewById(R.id.iv_lv_thumbnail);
 
         //thumbnailImageView.setImageBitmap();
 

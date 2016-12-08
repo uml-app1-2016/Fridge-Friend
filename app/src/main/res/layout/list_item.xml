@@ -9,14 +9,15 @@
     <ImageView
         android:layout_width="@dimen/image_lv_thumbnail_dimens"
         android:layout_height="@dimen/image_lv_thumbnail_dimens"
-        android:id="@+id/img_lv_thumbnail"
+        android:id="@+id/iv_lv_thumbnail"
         android:src="@drawable/cast_album_art_placeholder"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp">
 
         <TextView
             android:id="@+id/tv_item_name"
