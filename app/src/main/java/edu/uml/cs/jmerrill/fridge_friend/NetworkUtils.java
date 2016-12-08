@@ -84,7 +84,7 @@ public final class NetworkUtils {
 
         uriBuilder.appendQueryParameter("key", GOOGLE_KEY);
         uriBuilder.appendQueryParameter("cx", CSE);
-        uriBuilder.appendQueryParameter("q", name);
+        uriBuilder.appendQueryParameter("q", name.substring(2));
         uriBuilder.appendQueryParameter("searchType", "image");
         uriBuilder.appendQueryParameter("fileType", "jpg");
         uriBuilder.appendQueryParameter("imgSize", "small");

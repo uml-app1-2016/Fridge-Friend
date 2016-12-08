@@ -30,6 +30,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
@@ -149,15 +150,7 @@ public class ResultsActivity extends AppCompatActivity implements
         upcItem.applyItemType();
 
         Bitmap thumbnailBitmap = BitmapFactory.decodeByteArray(upcItem.getThumbnail(), 0, upcItem.getThumbnail().length);
-
-        // setting a default image for not-found codes
-        if (!(upcItem.getName().equals("not-found"))) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground(getResources().getDrawable(R.drawable.cast_album_art_placeholder));
-            }
-        } else {
-            imageView.setImageBitmap(thumbnailBitmap);
-        }
+        imageView.setImageBitmap(thumbnailBitmap);
 
         TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
         TextView idView = (TextView) findViewById(R.id.tv_results_item_id);
@@ -168,6 +161,7 @@ public class ResultsActivity extends AppCompatActivity implements
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
         typeView.setText(upcItem.getItemType().toString());
+        //Log.d("ResultsActivity", "ShelfLife: " + s)
         expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
 
 
