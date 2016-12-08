@@ -61,9 +61,6 @@ public final class NetworkUtils {
                 String thumbnailJSON = makeHttpRequest(thumbnailUrl);
                 Drawable thumbnail = extractThumbnailFromJSON(thumbnailJSON);
                 upcItem.setThumbnail(thumbnail);
-                Log.d(LOG_TAG, "applying the type");
-                //upcItem.applyItemType();
-                Log.d(LOG_TAG, "applied the type");
             } catch (MalformedURLException e) {
                 Log.e(LOG_TAG, "Problem building the thumbnail URL ", e);
             } catch (IOException e) {
@@ -78,6 +75,7 @@ public final class NetworkUtils {
     private static String buildThumbnailUrl(String name) {
         Uri baseUri = Uri.parse(SEARCH_REQUEST_URL);
         String url = null;
+        Log.d(LOG_TAG, "name of thumb: " + name);
 
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
@@ -136,7 +134,8 @@ public final class NetworkUtils {
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the UPC JSON results", e);
         }
-
+        Log.d(LOG_TAG, "item name: " + upcItem.getName());
+        Log.d(LOG_TAG, "item #: " + upcItem.getId());
         return upcItem;
     }
 

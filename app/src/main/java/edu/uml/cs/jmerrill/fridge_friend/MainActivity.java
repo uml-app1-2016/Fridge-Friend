@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static edu.uml.cs.jmerrill.fridge_friend.R.styleable.FloatingActionButton;
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             switch (resultCode) {
                 case Activity.RESULT_OK:
-                    if (true) {//imgFile.getAbsoluteFile().exists()) {
+                    if (imgFile.getAbsoluteFile().exists()) {
                         Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
 
                         // converts captured bitmap to byte array for passing as extra
@@ -120,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         if (bitmap != null) {
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 35, stream);
                         }
                         byte[] arr = stream.toByteArray();
 
-                        Log.d("MainActivity", arr.toString());
+                        Log.d("MainActivity", Arrays.toString(arr));
 
                         intent.putExtra("image", arr);
 

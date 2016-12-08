@@ -25,6 +25,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
@@ -107,8 +108,9 @@ public class ResultsActivity extends AppCompatActivity implements
         if (barcodes.size() != 0) {
             // detect barcode
             Barcode barcode = barcodes.valueAt(0);
-            if (barcode.rawValue.length() != 12) {
-                barcode_id = "0" + barcode.rawValue;
+
+            if (barcode.rawValue.charAt(0) == '0') {
+                barcode_id = barcode.rawValue.substring(1);
             } else {
                 barcode_id = barcode.rawValue;
             }
@@ -138,9 +140,15 @@ public class ResultsActivity extends AppCompatActivity implements
 
         TextView nameView = (TextView) findViewById(R.id.item_name);
         TextView idView = (TextView) findViewById(R.id.item_id);
+        TextView typeView = (TextView) findViewById(R.id.item_type);
+        TextView expDateView = (TextView) findViewById(R.id.item_exp_date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
 
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
+        typeView.setText(upcItem.getItemType().toString());
+        expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
+
 
 
     }
