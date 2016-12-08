@@ -1,8 +1,6 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
 import android.graphics.drawable.Drawable;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -86,11 +84,13 @@ public class UpcItem implements Serializable {
             for (String keyword : type.getKeywords()) {
                 if(name.toLowerCase().contains(keyword)) {
                     itemType = type;
+                    return;
                 } else {
                     itemType = ItemType.PACKAGED;
                 }
             }
         }
+        Log.d("UpcItem", "Item type: " + itemType);
     }
 
     public Drawable getThumbnail() {

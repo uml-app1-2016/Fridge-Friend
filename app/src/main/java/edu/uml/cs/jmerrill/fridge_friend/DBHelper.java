@@ -125,9 +125,13 @@ public class DBHelper extends SQLiteOpenHelper {
         UpcItem temp = null;
 
         while(res.isAfterLast() == false){
-            temp.setName(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_NAME)));
-           temp.setId(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID)));
-            temp.setItemType(ItemType.getValueAt(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));
+//            temp.setName(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_NAME)));
+            temp.setId(res.getString(0));
+            temp.setName(res.getString(1));
+            temp.setItemType(ItemType.getValueAt(res.getInt(2)));
+  //         temp.setId(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID)));
+
+    //        temp.setItemType(ItemType.getValueAt(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));
 
             array_list.add(temp);
             res.moveToNext();

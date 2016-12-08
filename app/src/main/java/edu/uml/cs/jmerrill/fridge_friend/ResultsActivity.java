@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
@@ -59,6 +61,14 @@ public class ResultsActivity extends AppCompatActivity implements
             Log.e(LOG_TAG, "Could not connect");
         }
         productdb = new DBHelper(this);
+
+        // convert Drawable to Byte Array for storage
+        // TODO: add byte array to the db
+        Bitmap thumbnailBitmap = ((BitmapDrawable) upcItem.getThumbnail()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] thumbnailBytes = stream.toByteArray();
+
         Button btnAddItem = (Button) findViewById(R.id.btn_add_item);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +121,9 @@ public class ResultsActivity extends AppCompatActivity implements
             Barcode barcode = barcodes.valueAt(0);
 
             if (barcode.rawValue.charAt(0) == '0') {
+                Log.d(LOG_TAG, "helllooooooo");
                 barcode_id = barcode.rawValue.substring(1);
+                //barcode_id = barcode.rawValue;
             } else {
                 barcode_id = barcode.rawValue;
             }
