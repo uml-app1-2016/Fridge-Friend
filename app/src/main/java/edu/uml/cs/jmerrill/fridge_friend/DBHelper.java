@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //call to init database
         db.execSQL(
                 "create table products " +
-                        "(id integer primary key, name text,type enum,shelflife integer, upc text)"
+                        "(id integer primary key, name text,type enum,shelflife integer, upc text, thumbnail BLOB)"
         );
     }
 
@@ -48,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertProduct (UpcItem upc) {
+    public boolean insertProduct (UpcItem upc, byte[] thumbnail) {
         //grab from passed upc
         String name = upc.getName();
         ItemType type = upc.getItemType();
@@ -63,6 +63,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("type", String.valueOf(type));
         contentValues.put("shelflife", shelflife);
         contentValues.put("upc", upccode);
+        // passing thumbnail as a BLOB type
+        contentValues.put("thumbnail", thumbnail);
 
         db.insert("products", null, contentValues);
         return true;

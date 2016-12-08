@@ -34,6 +34,7 @@ public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
 
     File imgFile;
+    byte[] thumbnailBytes;
     DBHelper productdb;
     public UpcItem upcItem;
 
@@ -62,18 +63,11 @@ public class ResultsActivity extends AppCompatActivity implements
         }
         productdb = new DBHelper(this);
 
-        // convert Drawable to Byte Array for storage
-        // TODO: add byte array to the db
-        //Bitmap thumbnailBitmap = ((BitmapDrawable) upcItem.getThumbnail()).getBitmap();
-        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        //thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        //byte[] thumbnailBytes = stream.toByteArray();
-
         Button btnAddItem = (Button) findViewById(R.id.btn_results_add_item);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productdb.insertProduct(upcItem);
+                productdb.insertProduct(upcItem, thumbnailBytes);
                 //productdb.deleteProduct(upcItem);
                 Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -154,7 +148,12 @@ public class ResultsActivity extends AppCompatActivity implements
 
         upcItem.applyItemType();
 
-        imageView.setImageDrawable(upcItem.getThumbnail());
+        Bitmap thumbnailBitmap = BitmapFactory.decodeByteArray(upcItem.getThumbnail(), 0, upcItem.getThumbnail().length);
+        imageView.setImageBitmap(thumbnailBitmap);
+
+        // convert Drawable to Byte Array for storage
+        // TODO: add byte array to the db
+
 
         TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
         TextView idView = (TextView) findViewById(R.id.tv_results_item_id);

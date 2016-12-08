@@ -14,7 +14,7 @@ public class UpcItem implements Serializable {
     private int shelfLife;
     private ItemType itemType;
     private Calendar dateAdded;
-    private Drawable thumbnail;
+    private byte[] thumbnail;
 
     public UpcItem(String name, String id, ItemType itemType){
         this.name = name;
@@ -93,11 +93,11 @@ public class UpcItem implements Serializable {
         Log.d("UpcItem", "Item type: " + itemType);
     }
 
-    public Drawable getThumbnail() {
+    public byte[] getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(Drawable thumbnail) {
+    public void setThumbnail(byte[] thumbnail) {
         this.thumbnail = thumbnail;
     }
     
