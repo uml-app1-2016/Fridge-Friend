@@ -15,8 +15,6 @@ import java.util.Calendar;
 
 public class ItemAdapter extends ArrayAdapter<UpcItem>{
 
-    //private UpcItem currentItem;
-
     public ItemAdapter(Context context, ArrayList<UpcItem> items) {
         super(context, 0, items);
     }
@@ -47,10 +45,5 @@ public class ItemAdapter extends ArrayAdapter<UpcItem>{
         //thumbnailImageView.setImageBitmap();
 
         return listItemView;
-    }
-
-    UpcItem getCurrentItem() {
-        UpcItem currentItem = new UpcItem("Name", "ID", ItemType.DAIRY);
-        return currentItem;
     }
 }

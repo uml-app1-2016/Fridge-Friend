@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -118,6 +119,11 @@ public class ResultsActivity extends AppCompatActivity implements
         } else {
             Log.e(LOG_TAG, "Bitmap did not return barcode");
             barcode_id = "00000000000";
+
+            Toast.makeText(getApplicationContext(), "Bad barcode image. Try again.", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
+            startActivity(intent);
         }
 
 
@@ -147,7 +153,7 @@ public class ResultsActivity extends AppCompatActivity implements
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
         typeView.setText(upcItem.getItemType().toString());
-        expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
+        //expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
 
 
 

@@ -78,14 +78,11 @@ public class MainActivity extends AppCompatActivity {
         //ArrayList array_list = productdb.getAllProducts();
         ArrayList array_list = new ArrayList<UpcItem>();
 
-        UpcItem tempItem = new UpcItem("Name", "Id", ItemType.DAIRY);
-        array_list.add(tempItem);
+        //UpcItem tempItem = new UpcItem("Name", "Id", ItemType.DAIRY);
+        //array_list.add(tempItem);
 
         ItemAdapter adapter = new ItemAdapter(this, array_list);
         lvMain.setAdapter(adapter);
-        //ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_list);
-
-        //lvMain.setAdapter(arrayAdapter);
 
     /*
         //list of all prods
