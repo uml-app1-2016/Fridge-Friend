@@ -104,18 +104,25 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] { upccode });
     }
 
-    public ArrayList<String> getAllProducts() {
+    public ArrayList<UpcItem> getAllProducts() {
 
         //to print full db in activity
-        ArrayList<String> array_list = new ArrayList<String>();
+        ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from products", null );
         res.moveToFirst();
+        UpcItem temp = null;
 
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_NAME)));
+
+            temp.setName(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_NAME)));
+           temp.setId(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID)));
+
+          //  temp.setItemType(ItemType.getItemType(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));
+
+            array_list.add(temp);
             res.moveToNext();
         }
         return array_list;
