@@ -32,6 +32,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.logging.Filter;
 
 import static edu.uml.cs.jmerrill.fridge_friend.R.styleable.FloatingActionButton;
 
@@ -45,12 +48,20 @@ public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     public DBHelper productdb;
 
+    private FilterSortSettings mSettings;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getIntent().hasExtra("Settings")) {
+            mSettings = (FilterSortSettings) getIntent().getSerializableExtra("Settings");
+        } else {
+            mSettings = new FilterSortSettings();
+        }
 
 /*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
@@ -93,10 +104,72 @@ public class MainActivity extends AppCompatActivity {
         //To test with all different ItemType options
         ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
         array_list.add(new UpcItem("Milk", "011111555559", ItemType.DAIRY));
-        array_list.add(new UpcItem("Chicken", "012345678900", ItemType.PRODUCE));
+        array_list.add(new UpcItem("Chicken", "012345678900", ItemType.MEAT));
+        array_list.add(new UpcItem("Banana", "055555999991", ItemType.PRODUCE));
         array_list.add(new UpcItem("Muffin", "031415920160", ItemType.BAKERY));
         array_list.add(new UpcItem("Tuna", "098765432150", ItemType.PACKAGED));
-        ItemAdapter adapter = new ItemAdapter(this, array_list);
+
+        ArrayList<UpcItem> filteredList = new ArrayList<UpcItem>();
+        for (int i = 0; i < array_list.size(); ++i) {
+            if (mSettings.getDairySetting()) {
+                if (array_list.get(i).getItemType() == ItemType.DAIRY) {
+                    filteredList.add(array_list.get(i));
+                }
+            }
+            if (mSettings.getProduceSetting()) {
+                if (array_list.get(i).getItemType() == ItemType.PRODUCE) {
+                    filteredList.add(array_list.get(i));
+                }
+            }
+            if (mSettings.getMeatSetting()) {
+                if (array_list.get(i).getItemType() == ItemType.MEAT) {
+                    filteredList.add(array_list.get(i));
+                }
+            }
+            if (mSettings.getBakerySetting()) {
+                if (array_list.get(i).getItemType() == ItemType.BAKERY) {
+                    filteredList.add(array_list.get(i));
+                }
+            }
+            if (mSettings.getPackagedSetting()) {
+                if (array_list.get(i).getItemType() == ItemType.PACKAGED) {
+                    filteredList.add(array_list.get(i));
+                }
+            }
+        }
+
+        switch(mSettings.getSortBySetting()) {
+            case DateAdded:
+                Collections.sort(filteredList, new Comparator<UpcItem>() {
+                    @Override
+                    public int compare(UpcItem o1, UpcItem o2) {
+                        //return (int) o1.getDateAdded().getTimeInMillis() - (int) o2.getDateAdded().getTimeInMillis();
+                        return o1.getDateAdded().compareTo(o2.getDateAdded());
+                    }
+                });
+                break;
+            case Name:
+                Collections.sort(filteredList, new Comparator<UpcItem>() {
+                    @Override
+                    public int compare(UpcItem o1, UpcItem o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
+                break;
+            case ExpirationDate:
+                Collections.sort(filteredList, new Comparator<UpcItem>() {
+                    @Override
+                    public int compare(UpcItem o1, UpcItem o2) {
+                        //return (int) o1.getExpDate().getTimeInMillis() - (int) o2.getExpDate().getTimeInMillis();
+                        return o1.getExpDate().compareTo(o2.getExpDate());
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+
+        ItemAdapter adapter = new ItemAdapter(this, filteredList);
         lvMain.setAdapter(adapter);
 
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,7 +193,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.putExtra("Settings", mSettings);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

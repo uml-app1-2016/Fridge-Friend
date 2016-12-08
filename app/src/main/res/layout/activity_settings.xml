@@ -20,38 +20,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:text="Filter"/>
+            android:text="Filter" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_filter_dairy"
             android:text="Dairy"
-            android:onClick=""/>
+            android:checked="true"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_filter_produce"
-            android:text="Produce"/>
+            android:text="Produce"
+            android:checked="true"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_filter_meat"
-            android:text="Meat"/>
+            android:text="Meat"
+            android:checked="true"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_filter_bakery"
-            android:text="Bakery"/>
+            android:text="Bakery"
+            android:checked="true"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_filter_packaged"
-            android:text="Packaged"/>
+            android:text="Packaged"
+            android:checked="true"/>
 
 
     </LinearLayout>
@@ -70,19 +74,22 @@
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_group_sort_by">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/radio_sort_name"
-                android:text="Name"/>
+                android:text="Name"
+                />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/radio_sort_date_added"
-                android:text="Date Added"/>
+                android:text="Date Added"
+                android:checked="true"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -97,7 +104,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center">
 
         <Button
@@ -105,7 +112,13 @@
             android:layout_height="wrap_content"
             android:text="Delete All Items"
             android:id="@+id/btn_clear_database"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Settings"
+            android:id="@+id/btn_save_settings"/>
 
     </LinearLayout>
 
