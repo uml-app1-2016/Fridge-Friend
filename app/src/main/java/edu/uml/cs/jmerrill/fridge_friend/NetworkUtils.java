@@ -88,7 +88,7 @@ public final class NetworkUtils {
         uriBuilder.appendQueryParameter("searchType", "image");
         uriBuilder.appendQueryParameter("fileType", "jpg");
         uriBuilder.appendQueryParameter("imgSize", "small");
-        uriBuilder.appendQueryParameter("num", "1");
+        uriBuilder.appendQueryParameter("num", "2");
         //uriBuilder.appendQueryParameter("alt", "json");
 
         Log.d(LOG_TAG, uriBuilder.toString());
@@ -152,7 +152,7 @@ public final class NetworkUtils {
             JSONObject baseJsonResponse = new JSONObject(thumbnailUrl);
 
             JSONArray imageArray = baseJsonResponse.getJSONArray("items");
-            JSONObject imageInfo = imageArray.getJSONObject(0);
+            JSONObject imageInfo = imageArray.getJSONObject(1);
             String link = imageInfo.getString("link");
             Log.d(LOG_TAG, "link = " + link);
             InputStream imageSource;
