@@ -111,7 +111,9 @@ public class ResultsActivity extends AppCompatActivity implements
             Barcode barcode = barcodes.valueAt(0);
 
             if (barcode.rawValue.charAt(0) == '0') {
+                Log.d(LOG_TAG, "helllooooooo");
                 barcode_id = barcode.rawValue.substring(1);
+                //barcode_id = barcode.rawValue;
             } else {
                 barcode_id = barcode.rawValue;
             }

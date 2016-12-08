@@ -1,6 +1,7 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -80,11 +81,13 @@ public class UpcItem {
             for (String keyword : type.getKeywords()) {
                 if(name.toLowerCase().contains(keyword)) {
                     itemType = type;
+                    return;
                 } else {
                     itemType = ItemType.PACKAGED;
                 }
             }
         }
+        Log.d("UpcItem", "Item type: " + itemType);
     }
 
     public Drawable getThumbnail() {
