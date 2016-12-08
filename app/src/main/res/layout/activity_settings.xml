@@ -101,11 +101,4 @@
         android:text="Delete All Items"
         android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_save_settings"
-        android:text="Save Settings"
-        android:layout_gravity="center"/>
-
 </LinearLayout>

@@ -8,10 +8,10 @@
     android:fitsSystemWindows="true"
     tools:context="edu.uml.cs.jmerrill.fridge_friend.MainActivity">
 
-
-
     <include layout="@layout/content_main"
         android:layout_height="408dp" />
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
