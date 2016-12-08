@@ -27,6 +27,22 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp" />
 
+    <TextView android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_type"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_exp_date"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
