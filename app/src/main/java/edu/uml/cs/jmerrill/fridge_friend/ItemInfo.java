@@ -1,11 +1,14 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -18,7 +21,7 @@ public class ItemInfo extends AppCompatActivity {
         setContentView(R.layout.activity_item_info);
 
         Intent thisIntent = getIntent();
-        final UpcItem upcItem = (UpcItem) getIntent().getSerializableExtra("upcItem");
+        final UpcItem upcItem = (UpcItem) getIntent().getSerializableExtra("UpcItem");
 
         TextView tvItemName = (TextView) findViewById(R.id.tv_item_info_name);
         tvItemName.setText(upcItem.getName());
@@ -37,8 +40,27 @@ public class ItemInfo extends AppCompatActivity {
         btnRemoveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ItemInfo.this, MainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ItemInfo.this);
+                builder.setTitle("Delete this item?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //delete item
+                        //dbhelper.deleteProduct(upcItem);
+                        dialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Item has been deleted.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ItemInfo.this, MainActivity.class));
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 

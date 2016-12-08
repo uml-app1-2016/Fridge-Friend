@@ -1,10 +1,16 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class UpcItem {
+import static java.lang.System.out;
+
+public class UpcItem implements Serializable {
 
     private String name, id;
     private int shelfLife;
@@ -94,4 +100,5 @@ public class UpcItem {
     public void setThumbnail(Drawable thumbnail) {
         this.thumbnail = thumbnail;
     }
+    
 }
