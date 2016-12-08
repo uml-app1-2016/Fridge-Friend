@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ListView lvMain = (ListView) findViewById(R.id.lv_main);
 
-/*        //list of all prods
+        //list of all prods
         //ArrayList array_list = productdb.getAllProducts();
 
         ArrayList<UpcItem> array_list = null;
@@ -99,16 +99,16 @@ public class MainActivity extends AppCompatActivity {
             array_list = productdb.getAllProducts();
             ItemAdapter adapter = new ItemAdapter(this, array_list);
             lvMain.setAdapter(adapter);
-        }*/
+        }
 
-        //To test with all different ItemType options
+    /*    //To test with all different ItemType options
         ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
         array_list.add(new UpcItem("Milk", "011111555559", ItemType.DAIRY));
         array_list.add(new UpcItem("Chicken", "012345678900", ItemType.MEAT));
         array_list.add(new UpcItem("Banana", "055555999991", ItemType.PRODUCE));
         array_list.add(new UpcItem("Muffin", "031415920160", ItemType.BAKERY));
         array_list.add(new UpcItem("Tuna", "098765432150", ItemType.PACKAGED));
-
+*/
         ArrayList<UpcItem> filteredList = new ArrayList<UpcItem>();
         for (int i = 0; i < array_list.size(); ++i) {
             if (mSettings.getDairySetting()) {

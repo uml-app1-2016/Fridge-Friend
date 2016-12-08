@@ -42,8 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void DeleteAll(SQLiteDatabase db){
-
+    public void DeleteAll(){
+        SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS products");
 
     }
@@ -118,10 +118,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public ArrayList<UpcItem> getAllProducts() {
-
-        if(numberOfRows() < 1) return null;
-        //to print full db in activity
         ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
+        if(numberOfRows() < 1) return array_list;
+
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -131,7 +130,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while(res.isAfterLast() == false){
 //            temp.setName(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_NAME)));
-            temp.setId(res.getString(0));
+
+            String strtemp1 = res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID));
+            String strtemp2 = res.getString(0);
+
+            temp.setId(strtemp1);
             temp.setName(res.getString(1));
             temp.setItemType(ItemType.getValueAt(res.getInt(2)));
             // retrieve the thumbnail from the blob entry in the db
