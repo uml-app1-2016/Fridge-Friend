@@ -155,8 +155,9 @@ public class ResultsActivity extends AppCompatActivity implements
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground(getResources().getDrawable(R.drawable.cast_album_art_placeholder));
             }
+        } else {
+            imageView.setImageBitmap(thumbnailBitmap);
         }
-        imageView.setImageBitmap(thumbnailBitmap);
 
         TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
         TextView idView = (TextView) findViewById(R.id.tv_results_item_id);
