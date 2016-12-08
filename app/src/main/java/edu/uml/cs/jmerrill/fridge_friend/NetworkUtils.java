@@ -152,7 +152,7 @@ public final class NetworkUtils {
             JSONObject baseJsonResponse = new JSONObject(thumbnailUrl);
 
             JSONArray imageArray = baseJsonResponse.getJSONArray("items");
-            JSONObject imageInfo = imageArray.getJSONObject(1);
+            JSONObject imageInfo = imageArray.getJSONObject(0);
             String link = imageInfo.getString("link");
             Log.d(LOG_TAG, "link = " + link);
             InputStream imageSource;
