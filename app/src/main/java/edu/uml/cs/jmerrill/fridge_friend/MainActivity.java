@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //get settings from settings activity
         if (getIntent().hasExtra("Settings")) {
             mSettings = (FilterSortSettings) getIntent().getSerializableExtra("Settings");
         } else {
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
                 File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 try {
                     imgFile = File.createTempFile("barcode", ".jpg", storageDir);
@@ -86,26 +86,16 @@ public class MainActivity extends AppCompatActivity {
 
         final ListView lvMain = (ListView) findViewById(R.id.lv_main);
 
-        //list of all prods
-        //ArrayList array_list = productdb.getAllProducts();
-
         ArrayList<UpcItem> array_list = null;
 
         if(productdb.numberOfRows() > 0) {
             array_list = productdb.getAllProducts();
-            ItemAdapter adapter = new ItemAdapter(this, array_list);
-            lvMain.setAdapter(adapter);
         }
 
-    /*    //To test with all different ItemType options
-        ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
-        array_list.add(new UpcItem("Milk", "011111555559", ItemType.DAIRY));
-        array_list.add(new UpcItem("Chicken", "012345678900", ItemType.MEAT));
-        array_list.add(new UpcItem("Banana", "055555999991", ItemType.PRODUCE));
-        array_list.add(new UpcItem("Muffin", "031415920160", ItemType.BAKERY));
-        array_list.add(new UpcItem("Tuna", "098765432150", ItemType.PACKAGED));
-*/
+
         ArrayList<UpcItem> filteredList = new ArrayList<UpcItem>();
+
+        //only add filter preference items to filteredList
         for (int i = 0; i < array_list.size(); ++i) {
             if (mSettings.getDairySetting()) {
                 if (array_list.get(i).getItemType() == ItemType.DAIRY) {
@@ -134,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //sort filteredList as settings preference indicates
         switch(mSettings.getSortBySetting()) {
             case DateAdded:
                 Collections.sort(filteredList, new Comparator<UpcItem>() {
@@ -165,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        //create and set adapter for lvMain to show filteredList
         ItemAdapter adapter = new ItemAdapter(this, filteredList);
         lvMain.setAdapter(adapter);
 
@@ -206,10 +198,6 @@ public class MainActivity extends AppCompatActivity {
                     if (imgFile.getAbsoluteFile().exists()) {
                         Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
 
-                        // converts captured bitmap to byte array for passing as extra
-                        //Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-
-
                         Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
                         if (bitmap == null) {
@@ -226,8 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
                         intent.putExtra("image", arr);
 
-                        //Bitmap bm = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                        //Bitmap bm = decodeSampledBitmapFromFile(imgFile.getAbsolutePath(), 100, 100);
                         Log.d("MainActivity", "Entering ResultActivity");
                         startActivity(intent);
                     } else {

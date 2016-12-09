@@ -9,6 +9,7 @@ import java.util.logging.Filter;
 
 public class FilterSortSettings implements Serializable {
 
+    // member variables for settings preferences
     private boolean mShowDairy;
     private boolean mShowProduce;
     private boolean mShowMeat;
@@ -16,6 +17,7 @@ public class FilterSortSettings implements Serializable {
     private boolean mShowPackaged;
     private SortBy mSortBy;
 
+    // Default constructor, assigns default settings preferences
     FilterSortSettings() {
         mShowDairy = true;
         mShowProduce = true;
@@ -25,6 +27,7 @@ public class FilterSortSettings implements Serializable {
         mSortBy = SortBy.DateAdded;
     }
 
+    // Custom constructor, assigns custom settings preferences
     FilterSortSettings(boolean showDairy, boolean showProduce, boolean showMeat, boolean showBakery, boolean showPackaged, SortBy sortBy) {
         mShowDairy = showDairy;
         mShowProduce = showProduce;
