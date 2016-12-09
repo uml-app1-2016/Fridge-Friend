@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -19,8 +18,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String PRODUCTS_COLUMN_TYPE = "type";
     public static final String PRODUCTS_COLUMN_SHELFLIFE = "shelflife";
     public static final String PRODUCTS_COLUMN_UPC = "upc";
-
-    private HashMap hp;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -72,7 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getData(UpcItem id) {
-        //get all data for passed uoc in db
+        //get all data for passed upc in db
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from products where upc="+id+"", null );
         return res;
@@ -121,8 +118,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<UpcItem> array_list = new ArrayList<UpcItem>();
         if(numberOfRows() < 1) return array_list;
 
-
-        //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from products", null );
         res.moveToFirst();
@@ -139,9 +134,6 @@ public class DBHelper extends SQLiteOpenHelper {
             temp.setItemType(ItemType.getValueAt(res.getInt(2)));
             // retrieve the thumbnail from the blob entry in the db
             temp.setThumbnail(res.getBlob(0));
-  //         temp.setId(res.getString(res.getColumnIndex(PRODUCTS_COLUMN_ID)));
-
-    //        temp.setItemType(ItemType.getValueAt(res.getInt(res.getColumnIndex(PRODUCTS_COLUMN_TYPE))));
 
             array_list.add(temp);
             res.moveToNext();

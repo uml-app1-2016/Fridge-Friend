@@ -4,14 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.preference.Preference;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -27,29 +22,27 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ResultsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<UpcItem> {
 
-    File imgFile;
+    // helper for the local database
     DBHelper productdb;
+
+    //the resulting UpcItem
     public UpcItem upcItem;
 
-
+    // Tag for debug logs
     private static final String LOG_TAG = ResultsActivity.class.getSimpleName();
     private static final int UPC_LOADER_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("ResultsActivity", "Entered ResultsActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        // load data from network
+        // initialize network connection and start loader
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -62,14 +55,15 @@ public class ResultsActivity extends AppCompatActivity implements
         } else {
             Log.e(LOG_TAG, "Could not connect");
         }
+
         productdb = new DBHelper(this);
 
+        // AddItem button to insert newly-created UpcItem into the database
         Button btnAddItem = (Button) findViewById(R.id.btn_results_add_item);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 productdb.insertProduct(upcItem);
-                //productdb.deleteProduct(upcItem);
                 Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -78,17 +72,13 @@ public class ResultsActivity extends AppCompatActivity implements
 
     @Override
     public Loader<UpcItem> onCreateLoader(int id, Bundle args) {
-        Log.d(LOG_TAG, "yup the loader's getting made");
 
-        imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "barcode.jpg");
-
-
+        // the image file is stored as a byte array as an extra from MainActivity
         if(getIntent().getExtras() == null) {
-            Log.d(LOG_TAG, "It's null oh no");
+            Log.d(LOG_TAG, "No image file present");
         }
 
         Log.d(LOG_TAG, getIntent().getExtras().toString());
-
 
         byte[] img = getIntent().getByteArrayExtra("image");
         Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
@@ -104,26 +94,29 @@ public class ResultsActivity extends AppCompatActivity implements
             return null;
         }
 
-        // set up the frame
+        // set up the frame on the image and parse the barcode
         Frame frame = new Frame.Builder().setBitmap(bitmap).build();
         SparseArray<Barcode> barcodes = detector.detect(frame);
 
+        // we no longer need the cached image, so get rid of it for the next run
         getBaseContext().deleteFile("barcode.jpg");
 
+        // create Upc string
         String barcode_id;
         if (barcodes.size() != 0) {
-            // detect barcode
+            // the Barcode API can fetch multiple barcodes in one image
+            // we only require the first one detected
             Barcode barcode = barcodes.valueAt(0);
 
+            // remove the leading 0 to allow searching with the UpcDatabase
             if (barcode.rawValue.charAt(0) == '0') {
-                Log.d(LOG_TAG, "helllooooooo");
                 barcode_id = barcode.rawValue.substring(1);
-                //barcode_id = barcode.rawValue;
             } else {
                 barcode_id = barcode.rawValue;
             }
 
         } else {
+            // repeat the image capture process if no barcode was parsed
             Log.e(LOG_TAG, "Bitmap did not return barcode");
             barcode_id = "00000000000";
 
@@ -132,7 +125,6 @@ public class ResultsActivity extends AppCompatActivity implements
             Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
             startActivity(intent);
         }
-
 
         Log.d(LOG_TAG, barcode_id);
         return new UpcItemLoader(this, barcode_id);
@@ -147,11 +139,14 @@ public class ResultsActivity extends AppCompatActivity implements
             Log.d(LOG_TAG, upcItem.getId());
         }
 
+        // now that UpcItem has been initialized, it is possible to apply an ItemType
         upcItem.applyItemType();
 
+        // display thumbnail image
         Bitmap thumbnailBitmap = BitmapFactory.decodeByteArray(upcItem.getThumbnail(), 0, upcItem.getThumbnail().length);
         imageView.setImageBitmap(thumbnailBitmap);
 
+        // text fields in UI
         TextView nameView = (TextView) findViewById(R.id.tv_results_item_name);
         TextView idView = (TextView) findViewById(R.id.tv_results_item_id);
         TextView typeView = (TextView) findViewById(R.id.tv_results_item_type);
@@ -161,11 +156,7 @@ public class ResultsActivity extends AppCompatActivity implements
         nameView.setText(upcItem.getName());
         idView.setText(upcItem.getId());
         typeView.setText(upcItem.getItemType().toString());
-        //Log.d("ResultsActivity", "ShelfLife: " + s)
         expDateView.setText(dateFormat.format(upcItem.getExpDate().getTime()));
-
-
-
     }
 
     @Override

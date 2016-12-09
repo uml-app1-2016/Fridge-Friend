@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
             mSettings = new FilterSortSettings();
         }
 
-/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Uri tempUri = FileProvider.getUriForFile(getParent(), "edu.uml.cs.jmerrill.fridge_friend.fileprovider", imgFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-                //intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         });

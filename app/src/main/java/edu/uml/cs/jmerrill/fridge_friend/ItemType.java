@@ -1,5 +1,8 @@
 package edu.uml.cs.jmerrill.fridge_friend;
 
+/**
+ * Each entry stores a shelf life and a set of keywords
+ */
 public enum ItemType {
     DAIRY(14, Keywords.DAIRY_KEYWORDS),
     PRODUCE(7, Keywords.PRODUCE_KEYWORDS),
@@ -23,6 +26,12 @@ public enum ItemType {
         return keywords;
     }
 
+    /**
+     * Equivalent to values[n]
+     * It is more efficient to use a switch case
+     *
+     * @return the type at the specified index
+     */
     public static ItemType getValueAt(int val) {
         switch (val) {
             case 0:
@@ -40,6 +49,10 @@ public enum ItemType {
         }
     }
 
+    /**
+     * Collections of keywords corresponding to each type
+     * For use in applying types based on item name
+     */
     private static class Keywords {
         private static final String[] PRODUCE_KEYWORDS =
                 {"mango",

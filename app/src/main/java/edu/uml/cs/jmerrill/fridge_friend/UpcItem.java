@@ -10,12 +10,15 @@ import static java.lang.System.out;
 
 public class UpcItem implements Serializable {
 
-    private String name, id;
-    private int shelfLife;
-    private ItemType itemType;
-    private Calendar dateAdded;
-    private byte[] thumbnail;
+    private String name, id; ///> product name and UPC ID
+    private int shelfLife; ///> shelf life as assigned by item type
+    private ItemType itemType; ///> Type of product (dairy, meat, etc)
+    private Calendar dateAdded; ///> The date of item creation
+    private byte[] thumbnail; ///> a small thumbnail image of the item
 
+    /**
+     * A constructor to determine all fields of the UpcItem
+     */
     public UpcItem(String name, String id, ItemType itemType){
         this.name = name;
         this.id = id;
@@ -26,7 +29,9 @@ public class UpcItem implements Serializable {
         dateAdded = Calendar.getInstance();
     }
 
-    // temp constructor
+    /**
+     * A constructor that assigns default type to change later
+     */
     public UpcItem(String name, String id) {
         this.name = name;
         this.id = id;
@@ -38,13 +43,13 @@ public class UpcItem implements Serializable {
         return name;
     }
 
-    public void setName(String itemname) { this.name = name; }
+    public void setName(String itemName) { this.name = itemName; }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String number) { this.id = id; }
+    public void setId(String number) { this.id = number; }
 
     public int getShelfLife() {
         return shelfLife;
@@ -64,11 +69,15 @@ public class UpcItem implements Serializable {
         return dateAdded;
     }
 
-    public void setDateAdded(int year, int month, int day) {
-        dateAdded.set(year, month, day);
+    public void setDateAdded(Calendar cal) { dateAdded = Calendar.getInstance(); }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
     }
 
-    public void setDateAdded(Calendar cal) { dateAdded = Calendar.getInstance(); }
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     /**
      * gets the expiration date as a function of the date added and the shelf life
@@ -91,6 +100,10 @@ public class UpcItem implements Serializable {
         return expDate;
     }
 
+    /**
+     * Loop through ItemType keyword values and match the item to the corresponding type
+     * Default to PACKAGED if no keyword matches
+     */
     public void applyItemType() {
         for (ItemType type : ItemType.values()) {
             for (String keyword : type.getKeywords()) {
@@ -102,15 +115,5 @@ public class UpcItem implements Serializable {
                 }
             }
         }
-        Log.d("UpcItem", "Item type: " + itemType);
     }
-
-    public byte[] getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-    
 }
